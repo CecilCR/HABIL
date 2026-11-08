@@ -1,0 +1,6 @@
+
+---
+
+## 3. `LICENSE`
+
+Para simplicidad, dejo una **MIT** para el código (el contenido pedagógico se puede re-licenciar por separado en el README, como indica arriba).
