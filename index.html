@@ -3,16 +3,18 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<meta name="description" content="Herramienta interactiva para ejercitar y reflexionar sobre habilidades sociales, técnicas y digitales en nuevos entornos organizacionales.">
+<meta name="description" content="Herramienta interactiva para reflexionar sobre la combinación de habilidades sociales, técnicas y digitales en entornos organizacionales.">
 <title>Habilidad crítica en acción</title>
 <style>
 :root{--h:#1E3A5F;--b:#d9e0ea;--bg:#f4f6fa;--tx:#1f2937;--mu:#5b6678;
 --s:#2563eb;--sb:#e6eeff;--t:#15803d;--tb:#e3f5ea;--d:#7e3fc4;--db:#f0e8fb;--am:#b45309;--amb:#fff4dc;--rd:#b91c1c}
 *{box-sizing:border-box}
 body{margin:0;font-family:"Segoe UI",system-ui,sans-serif;background:var(--bg);color:var(--tx);line-height:1.5}
-header{background:var(--h);color:#fff;padding:18px 20px}
+header{background:var(--h);color:#fff;padding:18px 20px;display:flex;justify-content:space-between;align-items:flex-start;gap:14px;flex-wrap:wrap}
 header h1{margin:0;font-size:1.3rem}header p{margin:4px 0 0;opacity:.85;font-size:.9rem}
-main{max-width:820px;margin:0 auto;padding:16px}
+.teacher-toggle{background:rgba(255,255,255,.15);border:1px solid rgba(255,255,255,.35);color:#fff;border-radius:8px;padding:8px 12px;font:inherit;font-size:.82rem;cursor:pointer}
+.teacher-toggle[aria-pressed=true]{background:#fff;color:var(--h);font-weight:600}
+main{max-width:860px;margin:0 auto;padding:16px}
 .card{background:#fff;border:1px solid var(--b);border-radius:12px;padding:18px;margin-bottom:14px}
 .stepper{display:flex;gap:6px;margin-bottom:14px}
 .stepper span{flex:1;height:6px;border-radius:3px;background:var(--b)}
@@ -30,32 +32,50 @@ h2{margin:0 0 8px;font-size:1.15rem;color:var(--h)}h3{margin:16px 0 6px;font-siz
 button.main{background:var(--h);color:#fff;border:0;border-radius:8px;padding:10px 18px;font:inherit;font-weight:600;cursor:pointer}
 button.main:disabled{opacity:.4;cursor:not-allowed}
 button.sec{background:#fff;color:var(--h);border:1px solid var(--h);border-radius:8px;padding:10px 18px;font:inherit;cursor:pointer}
-button.main:focus-visible,button.sec:focus-visible,.chip:focus-visible{outline:3px solid var(--s);outline-offset:2px}
+button.danger{background:#fff;color:var(--rd);border:1px solid var(--rd);border-radius:8px;padding:10px 18px;font:inherit;cursor:pointer}
+button.main:focus-visible,button.sec:focus-visible,button.danger:focus-visible,.chip:focus-visible,.teacher-toggle:focus-visible{outline:3px solid var(--s);outline-offset:2px}
 .row{border:1px solid var(--b);border-radius:10px;padding:10px 12px;margin:8px 0}
 .tag{display:inline-block;font-size:.72rem;font-weight:700;border-radius:4px;padding:1px 7px;margin-left:6px;color:#fff}
 .k{background:var(--t)}.r{background:var(--s)}.q{background:var(--mu)}.m{background:var(--am)}
 .row p{margin:4px 0 0;font-size:.9rem;color:var(--mu)}
 .alert{background:var(--amb);border:1px solid #f1d28b;border-radius:10px;padding:10px 14px;margin:12px 0;font-size:.92rem}
+.combo{background:var(--tb);border:1px solid #86efac;border-radius:10px;padding:12px 14px;margin:14px 0;font-size:.95rem}
+.combo b{color:var(--t)}
 .refl{background:var(--sb);border-radius:10px;padding:10px 14px;margin-top:12px}
+.teacher-box{background:#fff8e1;border:1px dashed #b45309;border-radius:10px;padding:10px 14px;margin:12px 0;font-size:.9rem}
+.teacher-box h4{margin:0 0 6px;color:var(--am);font-size:.9rem;text-transform:uppercase;letter-spacing:.04em}
+.teacher-box ul{margin:4px 0;padding-left:18px}.teacher-box li{margin:2px 0}
 .meter{display:flex;align-items:center;gap:10px;margin:6px 0;font-size:.9rem}
 .meter b{width:90px}.meter div{height:14px;border-radius:7px}.meter span{color:var(--mu)}
 .mt{flex:1;background:var(--bg);border-radius:7px}
-textarea{width:100%;min-height:70px;border:1px solid var(--b);border-radius:8px;padding:8px 10px;font:inherit;font-size:.9rem;resize:vertical;margin-top:6px}
-textarea:focus-visible{outline:3px solid var(--s);outline-offset:2px}
+textarea,input[type=text]{width:100%;border:1px solid var(--b);border-radius:8px;padding:8px 10px;font:inherit;font-size:.9rem;margin-top:6px}
+textarea{min-height:70px;resize:vertical}
+textarea:focus-visible,input[type=text]:focus-visible{outline:3px solid var(--s);outline-offset:2px}
 .hint{font-size:.85rem;color:var(--mu);margin:4px 0 0}
-@media(max-width:640px){main{padding:10px}.card{padding:14px}}
+.hidden{display:none!important}
+.dropzone{border:2px dashed var(--b);border-radius:10px;padding:18px;text-align:center;color:var(--mu);font-size:.9rem;cursor:pointer;margin:8px 0}
+.dropzone.hover{border-color:var(--s);background:var(--sb);color:var(--s)}
+table.agg{width:100%;border-collapse:collapse;font-size:.86rem;margin-top:8px}
+table.agg th,table.agg td{border:1px solid var(--b);padding:6px 8px;text-align:left}
+table.agg th{background:var(--bg);font-weight:600}
+@media(max-width:640px){main{padding:10px}.card{padding:14px}header{flex-direction:column}}
 </style>
 </head>
 <body>
 <noscript><div style="padding:20px;background:#fff4dc;border-bottom:2px solid #b45309"><b>Esta herramienta necesita JavaScript activado para funcionar.</b> Actívalo en tu navegador y recarga la página.</div></noscript>
-<header><h1>Habilidad crítica en acción</h1>
-<p>Gestión de las Relaciones en las Organizaciones · ¿Qué habilidades hacen la diferencia en cada situación?</p></header>
+<header>
+  <div>
+    <h1>Habilidad crítica en acción</h1>
+    <p>Gestión de las Relaciones en las Organizaciones · Elige la mejor combinación de habilidades para cada situación</p>
+  </div>
+  <button class="teacher-toggle" id="tToggle" aria-pressed="false" title="Muestra las claves y el panel de resultados agregados">Modo docente: OFF</button>
+</header>
 <main id="app"></main>
 <script>
 (function(){
 'use strict';
 
-/* ---------------- Catálogo de habilidades ---------------- */
+/* ================= Catálogo ================= */
 const FAM = { s:'Sociales', t:'Técnicas', d:'Digitales' };
 const SKILLS = {
   com:{name:'Comunicación efectiva',fam:'s'},
@@ -79,7 +99,7 @@ const SKILLS = {
 const IDS = Object.keys(SKILLS);
 const byFam = f => IDS.filter(id => SKILLS[id].fam === f);
 
-/* ---------------- Situaciones ---------------- */
+/* ================= Situaciones (5 base + 2 extra) ================= */
 const SC = [
 {t:'La desvinculación difícil',emo:1,
  x:'Tras varias llamadas de atención verbales y escritas, un trabajador no ha corregido una conducta específica (impuntualidad reiterada que afecta al turno). Debes comunicarle que se le va a desvincular.',
@@ -106,49 +126,70 @@ const SC = [
  c:{rp:'Resolver bajo presión: alternativas de abastecimiento, ajuste de carta y prioridades.',ie:'Mantener la calma propia y la del equipo en alta presión.',com:'Coordinar cocina y servicio, y avisar a los clientes con claridad.'},
  r:{lid:'Repartir tareas y decisiones con rapidez.',res:'Recuperarse del contratiempo y seguir adelante.',fin:'Comparar el costo de otro proveedor con el de perder ventas.',cdig:'Coordinar y contactar proveedores con mensajería o apps.'},
  q:'¿Qué habría hecho Sandra antes del incidente para que hoy sea menos crítico?'},
-{t:'El algoritmo que selecciona',
+/* ---- Desafío extra (opcional) ---- */
+{t:'El algoritmo que selecciona',extra:true,
  x:'El área de Personas propone usar un modelo automático para filtrar currículos. En la prueba, el sistema descarta sistemáticamente candidaturas de ciertos perfiles (por ejemplo, personas con brechas laborales o de determinadas zonas). El proveedor dice que «es solo el reflejo de los datos históricos».',
  c:{pc:'Distinguir correlación de causalidad, cuestionar la fuente de los datos y evaluar si el criterio del modelo es justo, más allá de su precisión técnica.',dat:'Revisar sesgos en los datos de entrenamiento y medir resultados por subgrupos antes de confiar en el modelo.',seg:'Proteger datos personales de candidaturas (base legal, finalidad, minimización) y conocer los riesgos de un tratamiento automatizado.'},
  r:{der:'Marco legal y laboral aplicable a decisiones automatizadas y no discriminación.',ci:'Dejar trazas y controles sobre cómo y por qué se descarta una candidatura.',com:'Explicar a la dirección y al equipo por qué un modelo aparentemente «neutral» puede reproducir desigualdades.'},
  q:'Si el modelo acierta el 90 % de las contrataciones históricas, ¿basta para usarlo? ¿Qué harías antes de ponerlo en producción?'},
-{t:'La herramienta que deja gente afuera',
+{t:'La herramienta que deja gente afuera',extra:true,
  x:'El equipo adopta una nueva app interna para reportar horas y solicitar vacaciones. Funciona bien, pero una persona con baja visión no puede usarla con su lector de pantalla y otra con conexión lenta pierde sesiones constantemente.',
  c:{ada:'Ajustar la solución a contextos reales de uso y proponer alternativas mientras se corrige la herramienta.',cdig:'Documentar y escalar el problema por los canales correctos, con evidencia clara para el proveedor o TI.',ie:'Reconocer el impacto que la exclusión tiene en la persona y evitar que cargue sola con el problema.'},
  r:{adt:'Explorar opciones de configuración o herramientas equivalentes.',com:'Escuchar y validar la experiencia de quienes quedan afuera antes de proponer soluciones.',col:'Coordinar entre usuarios, TI y proveedor para que la corrección llegue a tiempo.',seg:'Resguardar datos y accesos mientras se aplican parches o alternativas temporales.'},
  q:'¿Es un problema «de la persona» o «de la herramienta»? ¿Quién debe asumir el costo de la adaptación?'}
 ];
+const BASE_COUNT = SC.filter(s=>!s.extra).length; // 5
 
-/* ---------------- Estado persistente ---------------- */
-const KEY='hc_state_v2';
-const fresh = () => ({i:0,view:'play',picks:SC.map(()=>[]),just:SC.map(()=>''),done:SC.map(()=>false)});
+/* ================= Estado persistente ================= */
+const KEY='hc_state_v3', TKEY='hc_teacher_v1';
+const fresh = () => ({
+  i:0, view:'play',
+  picks: SC.map(()=>[]),
+  just:  SC.map(()=>''),
+  done:  SC.map(()=>false),
+  student: ''
+});
 function load(){
   try{
     const raw=localStorage.getItem(KEY);
     if(!raw) return fresh();
-    const p=JSON.parse(raw);
-    const base=fresh();
+    const p=JSON.parse(raw), base=fresh();
     if(!p||typeof p!=='object') return base;
     base.i = Number.isInteger(p.i)&&p.i>=0&&p.i<SC.length ? p.i : 0;
-    base.view = p.view==='res'||p.view==='final' ? p.view : 'play';
+    base.view = ['play','res','final','panel'].includes(p.view) ? p.view : 'play';
     if(Array.isArray(p.picks)) base.picks = base.picks.map((_,k)=>Array.isArray(p.picks[k])?p.picks[k].filter(id=>SKILLS[id]).slice(0,3):[]);
-    if(Array.isArray(p.just)) base.just = base.just.map((_,k)=>typeof p.just[k]==='string'?p.just[k]:'');
-    if(Array.isArray(p.done)) base.done = base.done.map((_,k)=>!!p.done[k]);
+    if(Array.isArray(p.just))  base.just  = base.just.map((_,k)=>typeof p.just[k]==='string'?p.just[k]:'');
+    if(Array.isArray(p.done))  base.done  = base.done.map((_,k)=>!!p.done[k]);
+    base.student = typeof p.student==='string' ? p.student : '';
     return base;
   }catch(_){ return fresh(); }
 }
 const st = load();
 const save = () => { try{ localStorage.setItem(KEY, JSON.stringify(st)); }catch(_){} };
+let teacherMode = (function(){ try{ return localStorage.getItem(TKEY)==='1'; }catch(_){ return false; } })();
+const setTeacher = v => { teacherMode=v; try{ localStorage.setItem(TKEY, v?'1':'0'); }catch(_){} };
 
-/* ---------------- Helpers UI ---------------- */
+/* ================= Helpers UI ================= */
 const $ = document.getElementById('app');
 const esc = s => String(s).replace(/[&<>"']/g, c => ({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]));
 
 const stepper = () => '<div class="stepper" aria-hidden="true">' +
-  SC.map((_,k)=>`<span class="${st.view==='final'||k<st.i?'on':k===st.i?'cur':''}"></span>`).join('') + '</div>';
+  SC.map((_,k)=>`<span class="${st.view==='final'||st.view==='panel'||k<st.i?'on':k===st.i?'cur':''}"></span>`).join('') + '</div>';
 
 function row(id, tag, cls, why){
   const S = SKILLS[id];
   return `<div class="row"><b>${esc(S.name)}</b> <span class="fam f${S.fam}" style="font-size:.75rem">(${FAM[S.fam]})</span><span class="tag ${cls}">${tag}</span><p>${esc(why)}</p></div>`;
+}
+
+function teacherBox(s){
+  if(!teacherMode) return '';
+  const claves = Object.keys(s.c).map(id=>`<li><b>${esc(SKILLS[id].name)}</b> (${FAM[SKILLS[id].fam]}): ${esc(s.c[id])}</li>`).join('');
+  const aportan = Object.keys(s.r).map(id=>`<li><b>${esc(SKILLS[id].name)}</b> (${FAM[SKILLS[id].fam]}): ${esc(s.r[id])}</li>`).join('');
+  return `<div class="teacher-box"><h4>Claves docentes (solo visibles en modo docente)</h4>
+    <b>Indispensables:</b><ul>${claves}</ul>
+    <b>Aportan:</b><ul>${aportan}</ul>
+    ${s.emo?'<p><b>Nota:</b> situación con alta carga emocional; útil para discutir el sesgo de elegir solo lo social.</p>':''}
+  </div>`;
 }
 
 function puntosCiegos(){
@@ -161,11 +202,45 @@ function puntosCiegos(){
   return acc;
 }
 
-/* ---------------- Vista: jugar ---------------- */
+function download(text, filename, mime){
+  const blob = new Blob([text], {type: mime+';charset=utf-8'});
+  const url = URL.createObjectURL(blob);
+  const a = document.createElement('a');
+  a.href = url; a.download = filename;
+  document.body.appendChild(a); a.click(); a.remove();
+  setTimeout(()=>URL.revokeObjectURL(url), 1500);
+}
+
+/* ================= Toggle docente ================= */
+const tToggle = document.getElementById('tToggle');
+function renderToggle(){
+  tToggle.setAttribute('aria-pressed', teacherMode ? 'true':'false');
+  tToggle.textContent = 'Modo docente: ' + (teacherMode?'ON':'OFF');
+  tToggle.title = teacherMode
+    ? 'Mostrando claves y panel agregado. Clic para ocultar.'
+    : 'Muestra las claves docentes y el panel de resultados agregados.';
+}
+tToggle.onclick = ()=>{ setTeacher(!teacherMode); renderToggle(); route(); };
+renderToggle();
+
+/* ================= Ruteo ================= */
+function route(){
+  if(st.view==='panel') panel();
+  else if(st.view==='final') fin();
+  else if(st.view==='res' && st.done[st.i]) res();
+  else { st.view='play'; play(); }
+}
+
+/* ================= Vista: jugar ================= */
 function play(){
   const s = SC[st.i], p = st.picks[st.i];
-  let h = stepper() + `<div class="card"><h2>Situación ${st.i+1} de ${SC.length}: ${esc(s.t)}</h2><div class="sit">${esc(s.x)}</div>
-  <h3>¿Qué habilidades son más críticas aquí?</h3><p class="hint">Elige exactamente 3. Pueden ser de una misma familia o repartirse entre varias.</p>`;
+  const isExtra = !!s.extra;
+  const label = isExtra ? `Desafío extra ${st.i - BASE_COUNT + 1} de ${SC.length - BASE_COUNT}` : `Situación ${st.i+1} de ${BASE_COUNT}`;
+  let h = stepper() + `<div class="card"><h2>${label}: ${esc(s.t)}</h2>
+    <div class="sit">${esc(s.x)}</div>
+    ${teacherBox(s)}
+    <h3>¿Qué combinación de habilidades se requiere para enfrentar esta situación con éxito?</h3>
+    <p class="hint">Elige exactamente 3. Pueden ser de una misma familia o combinarse entre varias. Piensa en cómo se potencian entre sí para lograr el resultado.</p>`;
   for(const f of ['s','t','d']){
     h += `<div class="fam f${f}">${FAM[f]}</div><div class="chips">` +
       byFam(f).map(id=>{
@@ -174,10 +249,13 @@ function play(){
         return `<button type="button" class="chip ${f}" data-id="${id}" aria-pressed="${on}" ${dis?'disabled':''}>${esc(SKILLS[id].name)}</button>`;
       }).join('') + '</div>';
   }
-  h += `<h3>Justifica brevemente tu elección <span style="font-weight:400;color:var(--mu);font-size:.85rem">(opcional, pero recomendado)</span></h3>
-    <textarea id="just" maxlength="600" placeholder="¿Por qué estas tres y no otras? ¿Qué riesgo ves si falta alguna?">${esc(st.just[st.i])}</textarea>
+  h += `<h3>Justifica brevemente tu combinación <span style="font-weight:400;color:var(--mu);font-size:.85rem">(opcional, recomendado)</span></h3>
+    <textarea id="just" maxlength="600" placeholder="¿Por qué estas tres y no otras? ¿Cómo se combinan para resolver la situación?">${esc(st.just[st.i])}</textarea>
     <p class="hint">Tu justificación se guardará y aparecerá en el resumen exportado.</p>
-    <div class="bar"><span>${p.length} de 3 elegidas</span><button class="main" id="go" ${p.length===3?'':'disabled'}>Ver análisis</button></div></div>`;
+    <div class="bar"><span>${p.length} de 3 elegidas</span>
+      ${isExtra ? '<button class="sec" id="skipExtra">Omitir desafío extra</button>' : ''}
+      <button class="main" id="go" ${p.length===3?'':'disabled'}>Ver análisis</button>
+    </div></div>`;
   $.innerHTML = h;
 
   $.querySelectorAll('.chip').forEach(b=>{
@@ -189,21 +267,37 @@ function play(){
   });
   const ta=document.getElementById('just');
   ta.addEventListener('input', ()=>{ st.just[st.i]=ta.value; save(); });
-  document.getElementById('go').onclick = ()=>{ st.done[st.i]=true; st.view='res'; save(); res(); };
+  const go=document.getElementById('go');
+  go.onclick = ()=>{ st.done[st.i]=true; st.view='res'; save(); res(); };
+  const skip=document.getElementById('skipExtra');
+  if(skip) skip.onclick = ()=>{ st.view='final'; save(); fin(); };
 }
 
-/* ---------------- Vista: análisis ---------------- */
+/* ================= Vista: análisis ================= */
 function res(){
   const s=SC[st.i], p=st.picks[st.i];
-  let h = stepper() + `<div class="card"><h2>Análisis: ${esc(s.t)}</h2><h3>Tus elecciones</h3>`;
+  let h = stepper() + `<div class="card"><h2>Análisis: ${esc(s.t)}</h2>`;
   if(st.just[st.i].trim()){
     h += `<div class="refl" style="margin-top:0"><b>Tu justificación:</b> ${esc(st.just[st.i].trim())}</div>`;
   }
+  h += '<h3>Tus elecciones</h3>';
   p.forEach(id=>{
     if(s.c[id]) h += row(id,'Indispensable','k',s.c[id]);
     else if(s.r[id]) h += row(id,'Aporta','r',s.r[id]);
     else h += row(id,'Discutible','q','No figura entre las más críticas aquí, pero podrías defenderla: ¿qué detalle de la situación la volvería indispensable?');
   });
+
+  // NUEVO: Pregunta de combinación
+  const inds = Object.keys(s.c);
+  if(inds.length > 1){
+    const nombres = inds.map(id=>`<b>${esc(SKILLS[id].name)}</b> <span class="fam f${SKILLS[id].fam}" style="font-size:.78rem">(${FAM[SKILLS[id].fam]})</span>`).join(' + ');
+    h += `<div class="combo">
+      <b>¿Qué combinación se requiere para enfrentar la situación con éxito?</b><br>
+      No basta con una sola habilidad. Para resolverla con éxito se requiere articular: ${nombres}.
+      <br><small>¿Cómo se potencian entre sí? ¿Qué pasaría si falta una de ellas?</small>
+    </div>`;
+  }
+
   const miss = Object.keys(s.c).filter(id=>!p.includes(id));
   if(miss.length) h += '<h3>Indispensables que no elegiste</h3>' + miss.map(id=>row(id,'Punto ciego','m',s.c[id])).join('');
   const need = Object.keys(s.c).filter(id=>SKILLS[id].fam!=='s');
@@ -213,7 +307,10 @@ function res(){
       : '<div class="alert"><b>Ojo:</b> en esta situación era indispensable alguna habilidad técnica o digital. ¿Cuál y por qué?</div>';
   }
   h += `<div class="refl"><b>Para reflexionar:</b> ${esc(s.q)}<br><small>Este análisis es una lectura posible, no la única respuesta correcta: discútela con tu grupo.</small></div>
-    <div class="bar"><button class="sec" id="back">Cambiar mi elección</button><button class="main" id="next">${st.i<SC.length-1?'Siguiente situación':'Ver mi perfil'}</button></div></div>`;
+    <div class="bar">
+      <button class="sec" id="back">Cambiar mi elección</button>
+      <button class="main" id="next">${st.i<SC.length-1?'Siguiente':'Ver mi perfil'}</button>
+    </div></div>`;
   $.innerHTML = h;
   document.getElementById('back').onclick = ()=>{ st.view='play'; save(); play(); };
   document.getElementById('next').onclick = ()=>{
@@ -222,89 +319,241 @@ function res(){
   };
 }
 
-/* ---------------- Vista: perfil final ---------------- */
+/* ================= Vista: perfil final ================= */
 function fin(){
   const c={s:0,t:0,d:0};
   st.picks.forEach(a=>a.forEach(id=>c[SKILLS[id].fam]++));
   const tot=c.s+c.t+c.d||1;
   const col={s:'var(--s)',t:'var(--t)',d:'var(--d)'};
-  const pc = puntosCiegos();
-  const pcTot = pc.s+pc.t+pc.d;
+  const pc = puntosCiegos(), pcTot = pc.s+pc.t+pc.d;
+  const baseDone = st.picks.slice(0,BASE_COUNT).every(a=>a.length===3);
+  const extraDone = st.picks.slice(BASE_COUNT).some(a=>a.length===3);
 
-  let h = stepper() + `<div class="card"><h2>Tu perfil de elecciones</h2><p>Así se repartieron tus ${tot} elecciones entre las tres familias:</p>`;
+  let h = stepper() + `<div class="card"><h2>Tu perfil de elecciones</h2>
+    <p>Así se repartieron tus ${tot} elecciones entre las tres familias:</p>`;
   for(const f of ['s','t','d']){
     h += `<div class="meter"><b>${FAM[f]}</b><div class="mt"><div style="width:${Math.round(c[f]/tot*100)}%;background:${col[f]}"></div></div><span>${Math.round(c[f]/tot*100)} %</span></div>`;
   }
   if(pcTot>0){
-    h += `<h3>Puntos ciegos acumulados</h3><p class="hint">Habilidades que el análisis marcó como indispensables en alguna situación y no elegiste (${pcTot} en total).</p>`;
+    h += `<h3>Puntos ciegos acumulados</h3>
+      <p class="hint">Habilidades que el análisis marcó como indispensables en alguna situación y no elegiste (${pcTot} en total).</p>`;
     for(const f of ['s','t','d']){
       h += `<div class="meter"><b>${FAM[f]}</b><div class="mt"><div style="width:${Math.round(pc[f]/pcTot*100)}%;background:${col[f]}"></div></div><span>${pc[f]}</span></div>`;
     }
   }
-  // Lectura
   let lectura;
-  if(c.s/tot>=0.7 && pc.t+pc.d>0){
+  if(c.s/tot>=0.7 && (pc.t+pc.d)>0){
     lectura = '<div class="alert"><b>Tendencia:</b> elegiste lo social casi por defecto, y quedaron puntos ciegos técnicos/digitales. Revisa cada situación: ¿qué conocimiento técnico o digital te faltó considerar?</div>';
   } else if(c.s/tot>=0.7){
     lectura = '<div class="alert"><b>Tendencia:</b> elegiste lo social casi por defecto. Pregúntate si en algún caso una habilidad técnica o digital era la que realmente marcaba la diferencia.</div>';
-  } else if(c.t+c.d>=0.7 && pc.s>0){
+  } else if((c.t+c.d)/tot>=0.7 && pc.s>0){
     lectura = '<div class="alert"><b>Tendencia:</b> te inclinaste por lo técnico/digital, y quedaron puntos ciegos sociales. ¿Qué se pierde cuando una solución técnicamente correcta no se comunica ni se sostiene con las personas?</div>';
   } else {
     lectura = '<div class="alert"><b>Lectura:</b> combinaste distintas familias. Pregúntate en qué situaciones fue la combinación —y no una sola habilidad— lo que marcó la diferencia.</div>';
   }
   h += lectura;
-  h += `<div class="refl"><b>Cierre:</b> en la vida organizacional las habilidades rara vez actúan solas. ¿Cuál de tus elecciones defenderías con más fuerza ante tus compañeros? ¿Cuál cambiarías ahora?</div>
-    <div class="bar"><button class="sec" id="expTxt">Descargar resumen (.txt)</button><button class="sec" id="expJson">Descargar datos (.json)</button><button class="main" id="rst">Volver a empezar</button></div></div>`;
+
+  // Identificación opcional del alumno
+  h += `<h3>Identificación (opcional)</h3>
+    <p class="hint">Si quieres que tu docente pueda tabular tu resultado, escribe tu nombre o código.</p>
+    <input type="text" id="studentName" maxlength="60" placeholder="Nombre o código" value="${esc(st.student)}">`;
+
+  // Desafío extra
+  if(baseDone && !extraDone){
+    h += `<div class="bar" style="justify-content:center;margin-top:14px">
+      <button class="sec" id="goExtra">Aceptar el desafío extra (2 situaciones avanzadas)</button>
+    </div>`;
+  }
+
+  h += `<div class="refl"><b>Cierre:</b> en la vida organizacional las habilidades rara vez actúan solas. ¿Cuál de tus combinaciones defenderías con más fuerza ante tus compañeros? ¿Cuál cambiarías ahora?</div>
+    <div class="bar">
+      <button class="sec" id="expTxt">Resumen (.txt)</button>
+      <button class="sec" id="expJson">Datos (.json)</button>
+      ${teacherMode ? '<button class="sec" id="openPanel">Panel docente</button>' : ''}
+      <button class="danger" id="rst">Volver a empezar</button>
+    </div></div>`;
   $.innerHTML = h;
 
+  document.getElementById('studentName').addEventListener('input', e=>{
+    st.student = e.target.value; save();
+  });
   document.getElementById('rst').onclick = ()=>{
     if(!confirm('Se borrará tu progreso actual. ¿Continuar?')) return;
-    Object.assign(st, fresh()); save(); play();
+    Object.assign(st, fresh()); save(); route();
   };
+  const goExtra = document.getElementById('goExtra');
+  if(goExtra) goExtra.onclick = ()=>{ st.i = BASE_COUNT; st.view='play'; save(); play(); };
+  const openPanel = document.getElementById('openPanel');
+  if(openPanel) openPanel.onclick = ()=>{ st.view='panel'; save(); panel(); };
+
   document.getElementById('expTxt').onclick = ()=>{
     let t='HABILIDAD CRÍTICA EN ACCIÓN — Resumen\n';
+    if(st.student.trim()) t+='Alumno: '+st.student.trim()+'\n';
     t+='Fecha: '+new Date().toLocaleString()+'\n\n';
     SC.forEach((s,k)=>{
-      t+=`Situación ${k+1}: ${s.t}\n`;
+      t+=`${s.extra?'[Extra] ':'[Base] '}${k+1}. ${s.t}\n`;
       t+=`Mis elecciones: ${st.picks[k].map(i=>SKILLS[i].name).join('; ')||'—'}\n`;
       if(st.just[k].trim()) t+=`Justificación: ${st.just[k].trim()}\n`;
       t+=`Indispensables según el análisis: ${Object.keys(s.c).map(i=>SKILLS[i].name).join('; ')}\n`;
+      t+=`Combinación requerida: ${Object.keys(s.c).map(i=>SKILLS[i].name).join(' + ')}\n`;
       t+=`Reflexión: ${s.q}\n\n`;
     });
     download(t, 'habilidad_critica_resumen.txt', 'text/plain');
   };
   document.getElementById('expJson').onclick = ()=>{
     const data = {
-      fecha:new Date().toISOString(),
+      alumno: st.student.trim(),
+      fecha: new Date().toISOString(),
       situaciones: SC.map((s,k)=>({
-        titulo:s.t,
+        titulo: s.t,
+        extra: !!s.extra,
         elecciones: st.picks[k],
         justificacion: st.just[k],
         indispensables: Object.keys(s.c),
-        aportan: Object.keys(s.r)
+        aportan: Object.keys(s.r),
+        combinacion: Object.keys(s.c)
       })),
-      perfil:{sociales:c.s,tecnicas:c.t,digitales:c.d},
-      puntosCiegos:pc
+      perfil: { sociales:c.s, tecnicas:c.t, digitales:c.d },
+      puntosCiegos: pc
     };
-    download(JSON.stringify(data,null,2), 'habilidad_critica_datos.json', 'application/json');
+    const fname = st.student.trim()
+      ? 'habilidad_critica_'+st.student.trim().replace(/[^a-z0-9_-]/gi,'_')+'.json'
+      : 'habilidad_critica_datos.json';
+    download(JSON.stringify(data,null,2), fname, 'application/json');
   };
 }
 
-function download(text, filename, mime){
-  const blob = new Blob([text], {type: mime+';charset=utf-8'});
-  const url = URL.createObjectURL(blob);
-  const a = document.createElement('a');
-  a.href = url; a.download = filename;
-  document.body.appendChild(a); a.click(); a.remove();
-  setTimeout(()=>URL.revokeObjectURL(url), 1500);
+/* ================= Vista: panel docente ================= */
+const agg = { files: [] };
+function panel(){
+  let h = `<div class="card"><h2>Panel docente — Resultados agregados</h2>
+    <p class="hint">Carga los archivos <code>.json</code> exportados por los alumnos. Todo el procesamiento ocurre en tu navegador: nada se envía a ningún servidor.</p>
+    <div class="dropzone" id="dz">Arrastra aquí los .json o haz clic para seleccionar archivos</div>
+    <input type="file" id="fileIn" accept=".json,application/json" multiple class="hidden">
+    <div id="aggResult"></div>
+    <div class="bar">
+      <button class="sec" id="backHome">Volver</button>
+      <button class="sec" id="clearAgg">Limpiar</button>
+      <button class="main" id="exportAgg" disabled>Exportar reporte (.csv)</button>
+    </div>
+  </div>`;
+  $.innerHTML = h;
+
+  const dz = document.getElementById('dz');
+  const fileIn = document.getElementById('fileIn');
+  dz.onclick = ()=> fileIn.click();
+  dz.ondragover = e => { e.preventDefault(); dz.classList.add('hover'); };
+  dz.ondragleave = ()=> dz.classList.remove('hover');
+  dz.ondrop = e => {
+    e.preventDefault(); dz.classList.remove('hover');
+    handleFiles(e.dataTransfer.files);
+  };
+  fileIn.onchange = e => handleFiles(e.target.files);
+
+  document.getElementById('backHome').onclick = ()=>{ st.view='final'; save(); fin(); };
+  document.getElementById('clearAgg').onclick = ()=>{ agg.files=[]; renderAgg(); };
+  document.getElementById('exportAgg').onclick = exportCSV;
+  renderAgg();
+}
+function handleFiles(fileList){
+  const files = Array.from(fileList||[]);
+  let ok=0, fail=0;
+  files.forEach(f=>{
+    const reader = new FileReader();
+    reader.onload = ()=>{
+      try{
+        const data = JSON.parse(reader.result);
+        if(!data || !Array.isArray(data.situaciones)) throw new Error('formato');
+        data._filename = f.name;
+        agg.files.push(data); ok++;
+      }catch(_){ fail++; }
+      if(ok+fail===files.length) renderAgg(fail);
+    };
+    reader.readAsText(f, 'utf-8');
+  });
+}
+function renderAgg(fail){
+  const box = document.getElementById('aggResult');
+  if(!agg.files.length){
+    box.innerHTML = `<p class="hint" style="margin-top:10px">Aún no hay archivos cargados.</p>`;
+    document.getElementById('exportAgg').disabled = true;
+    return;
+  }
+  document.getElementById('exportAgg').disabled = false;
+
+  const n = agg.files.length;
+  const famTot={s:0,t:0,d:0};
+  const skillCount={}, skillOmit={};
+  IDS.forEach(id=>{ skillCount[id]=0; skillOmit[id]=0; });
+  const blindBySit = SC.map(()=>({s:0,t:0,d:0}));
+  const perStudent = [];
+
+  agg.files.forEach(data=>{
+    const p = data.perfil || {sociales:0,tecnicas:0,digitales:0};
+    famTot.s += p.sociales||0; famTot.t += p.tecnicas||0; famTot.d += p.digitales||0;
+    (data.situaciones||[]).forEach((sit,k)=>{
+      (sit.elecciones||[]).forEach(id=>{ if(skillCount[id]!==undefined) skillCount[id]++; });
+      (sit.indispensables||[]).forEach(id=>{
+        if(!(sit.elecciones||[]).includes(id)){
+          if(skillOmit[id]!==undefined) skillOmit[id]++;
+          if(blindBySit[k] && SKILLS[id]) blindBySit[k][SKILLS[id].fam]++;
+        }
+      });
+    });
+    perStudent.push({
+      alumno: data.alumno || data._filename || '(sin nombre)',
+      fecha: data.fecha || '',
+      sociales: p.sociales||0, tecnicas: p.tecnicas||0, digitales: p.digitales||0,
+      puntosCiegos: data.puntosCiegos || {s:0,t:0,d:0}
+    });
+  });
+
+  const famTotal = famTot.s+famTot.t+famTot.d || 1;
+  const bar = (val, tot, color) => `<div class="mt"><div style="width:${Math.round(val/tot*100)}%;background:${color}"></div></div>`;
+
+  let out = `<h3>Resumen (${n} respuesta${n!==1?'s':''}${fail?` · ${fail} archivo(s) inválido(s)`:''})</h3>`;
+  out += `<h3>Distribución de elecciones por familia</h3>`;
+  for(const f of ['s','t','d']){
+    out += `<div class="meter"><b>${FAM[f]}</b>${bar(famTot[f],famTotal,`var(--${f})`)}<span>${Math.round(famTot[f]/famTotal*100)} %</span></div>`;
+  }
+
+  const topSkills = IDS.map(id=>({id,n:skillCount[id]})).filter(x=>x.n>0).sort((a,b)=>b.n-a.n).slice(0,5);
+  const topOmit  = IDS.map(id=>({id,n:skillOmit[id]})).filter(x=>x.n>0).sort((a,b)=>b.n-a.n).slice(0,5);
+
+  out += `<h3>Habilidades más elegidas</h3><ul>` +
+    (topSkills.length?topSkills.map(x=>`<li><b>${esc(SKILLS[x.id].name)}</b> — ${x.n} elección(es)</li>`).join(''):'<li>—</li>') + `</ul>`;
+  out += `<h3>Puntos ciegos más frecuentes (indispensables no elegidas)</h3><ul>` +
+    (topOmit.length?topOmit.map(x=>`<li><b>${esc(SKILLS[x.id].name)}</b> — ${x.n} omisión(es)</li>`).join(''):'<li>—</li>') + `</ul>`;
+
+  out += `<h3>Puntos ciegos por situación</h3><table class="agg"><thead><tr><th>Situación</th><th>Sociales</th><th>Técnicas</th><th>Digitales</th></tr></thead><tbody>`;
+  SC.forEach((s,k)=>{
+    const b = blindBySit[k];
+    out += `<tr><td>${k+1}. ${esc(s.t)}</td><td>${b.s}</td><td>${b.t}</td><td>${b.d}</td></tr>`;
+  });
+  out += `</tbody></table>`;
+
+  out += `<h3>Detalle por alumno</h3><table class="agg"><thead><tr><th>Alumno</th><th>Sociales</th><th>Técnicas</th><th>Digitales</th><th>Puntos ciegos (S/T/D)</th></tr></thead><tbody>`;
+  perStudent.forEach(r=>{
+    out += `<tr><td>${esc(r.alumno)}</td><td>${r.sociales}</td><td>${r.tecnicas}</td><td>${r.digitales}</td>
+      <td>${r.puntosCiegos.s||0} / ${r.puntosCiegos.t||0} / ${r.puntosCiegos.d||0}</td></tr>`;
+  });
+  out += `</tbody></table>`;
+  box.innerHTML = out;
+}
+function exportCSV(){
+  if(!agg.files.length) return;
+  const rows = [['Alumno','Fecha','Sociales','Tecnicas','Digitales','PC_S','PC_T','PC_D']];
+  agg.files.forEach(data=>{
+    const p = data.perfil || {sociales:0,tecnicas:0,digitales:0};
+    const pc = data.puntosCiegos || {s:0,t:0,d:0};
+    rows.push([data.alumno || data._filename || '', data.fecha || '', p.sociales||0, p.tecnicas||0, p.digitales||0, pc.s||0, pc.t||0, pc.d||0]);
+  });
+  const csv = rows.map(r=>r.map(v=>`"${String(v).replace(/"/g,'""')}"`).join(',')).join('\n');
+  download('\ufeff'+csv, 'reporte_agregado.csv', 'text/csv');
 }
 
-/* ---------------- Arranque ---------------- */
-if(st.view==='final') fin();
-else if(st.view==='res' && st.done[st.i]) res();
-else { st.view='play'; play(); }
-
-// Guardar al salir (por si acaso)
+/* ================= Arranque ================= */
+route();
 window.addEventListener('beforeunload', save);
 })();
 </script>
