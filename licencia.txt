@@ -1,16 +1,9 @@
 
 ---
 
-## Resumen de lo que cambió respecto a la versión anterior
+### ¿Qué logramos con estos cambios?
 
-| Cambio | Detalle |
-|---|---|
-| **5 situaciones base + 2 extra opcionales** | Se reduce la carga cognitiva. El desafío extra se ofrece solo al terminar las base. |
-| **Pregunta de combinación en el análisis** | Bloque verde destacado: *"¿Qué combinación se requiere para enfrentar la situación con éxito?"* con los nombres y familias de las indispensables. |
-| **Modo docente funcional** | Toggle persistente + bloque *"Claves docentes"* en cada situación (solo visible si está activo). |
-| **Panel docente** | Carga múltiples `.json`, agrega métricas, tabla por alumno, exportación CSV. Todo local. |
-| **Identificación opcional del alumno** | Campo `studentName` antes de exportar. Se incluye en el nombre del archivo y en el JSON. |
-| **Exportación enriquecida** | El TXT ahora incluye *"Combinación requerida"* por situación. El JSON incluye `combinacion`, `extra`, `alumno`. |
-| **README** | Reescrito con la idea central de **combinación**, la estructura base/extra, el flujo alumno/docente y las limitaciones. |
-
-Con esto la guía, el juego y la evaluación quedan alineados, y el docente tiene una vía concreta para ver resultados agregados sin necesidad de backend. ¿Quieres que añada también una **hoja de cálculo modelo** (CSV de ejemplo) para que el docente vea el formato esperado antes de cargar los JSON?
+1. **Pantalla de Bienvenida clara:** El gráfico de hexágonos (hecho en CSS) refuerza visualmente la tríada y el centro. El texto de apertura es directo: *"encontrar la mejor combinación"*.
+2. **Cero confusión:** Al eliminar el Modo Docente, el alumno no tiene forma de ver las respuestas antes de tiempo, y el docente no tiene botones que puedan distraer en el aula.
+3. **La guía y el juego están alineados:** El juego ahora tiene exactamente las 5 situaciones base que menciona la guía, con una sexta y séptima opcionales que no generan sobrecarga.
+4. **Exportación intacta:** El docente todavía puede recibir los JSON y procesarlos en Excel (usando la columna de combinación o el perfil del alumno). Si más adelante deseas un panel agregado, te sugiero hacerlo en un archivo separado (`admin.html`) que solo tú abras localmente.
