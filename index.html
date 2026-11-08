@@ -57,53 +57,16 @@ textarea{min-height:80px;resize:vertical;}
 .hint{font-size:.88rem;color:var(--mu);margin:6px 0 0;}
 .hidden{display:none!important;}
 
-/* Tarjetas de acción para el desafío extra */
-.action-card {
-  border: 1px solid var(--b);
-  border-radius: 8px;
-  padding: 14px 16px;
-  margin-bottom: 12px;
-  cursor: pointer;
-  transition: all 0.2s;
-  background: #fff;
-  position: relative;
-}
-.action-card:hover {
-  border-color: var(--s);
-  box-shadow: 0 2px 8px rgba(37, 99, 235, 0.1);
-}
-.action-card.selected {
-  border-color: var(--s);
-  background: var(--sb);
-  outline: 2px solid var(--s);
-}
-.action-card.selected::after {
-  content: '✓';
-  position: absolute;
-  right: 16px;
-  top: 50%;
-  transform: translateY(-50%);
-  color: var(--s);
-  font-weight: 700;
-  font-size: 1.2rem;
-}
+.action-card { border: 1px solid var(--b); border-radius: 8px; padding: 14px 16px; margin-bottom: 12px; cursor: pointer; transition: all 0.2s; background: #fff; position: relative; }
+.action-card:hover { border-color: var(--s); box-shadow: 0 2px 8px rgba(37, 99, 235, 0.1); }
+.action-card.selected { border-color: var(--s); background: var(--sb); outline: 2px solid var(--s); }
+.action-card.selected::after { content: '✓'; position: absolute; right: 16px; top: 50%; transform: translateY(-50%); color: var(--s); font-weight: 700; font-size: 1.2rem; }
 .action-card p { margin: 0; font-size: 0.95rem; padding-right: 24px; }
 
-/* Hexágonos sin deformación */
 .welcome-graphic { display:flex; flex-direction:column; align-items:center; margin:30px 0; }
 .hex-row { display:flex; justify-content:center; }
-.hex {
-  width: clamp(80px, 20vw, 120px);
-  aspect-ratio: 1 / 0.866;
-  background:#38bdf8;
-  clip-path: polygon(50% 0%, 100% 25%, 100% 75%, 50% 100%, 0% 75%, 0% 25%);
-  display:flex; align-items:center; justify-content:center;
-  color:#000; font-weight:700; font-size:clamp(0.6rem, 1.5vw, 0.85rem);
-  text-align:center; margin:-5px; position:relative; z-index:1;
-}
-.hex.s { background:#2dd4bf; }
-.hex.t { background:#38bdf8; }
-.hex.d { background:#3b82f6; }
+.hex { width: clamp(80px, 20vw, 120px); aspect-ratio: 1 / 0.866; background:#38bdf8; clip-path: polygon(50% 0%, 100% 25%, 100% 75%, 50% 100%, 0% 75%, 0% 25%); display:flex; align-items:center; justify-content:center; color:#000; font-weight:700; font-size:clamp(0.6rem, 1.5vw, 0.85rem); text-align:center; margin:-5px; position:relative; z-index:1; }
+.hex.s { background:#2dd4bf; } .hex.t { background:#38bdf8; } .hex.d { background:#3b82f6; }
 .hex.center { background:#fff; width: clamp(66px, 16vw, 100px); z-index:2; border: 3px solid #000; font-size:clamp(0.5rem, 1.2vw, 0.75rem); box-shadow: 0 0 10px rgba(0,0,0,0.1); }
 .hex-shadow { filter: drop-shadow(0 0 4px rgba(0,0,0,0.2)); }
 .hex-wrapper { position:relative; display:flex; flex-direction:column; align-items:center; }
@@ -142,7 +105,7 @@ const byFam = f => IDS.filter(id => SKILLS[id].fam === f);
 /* ================= Situaciones ================= */
 const SC = [
 {t:'La desvinculación difícil',emo:1,
- x:'Tras varias llamadas de atención verbales y escritas, un trabajador no ha corregido una conducta específica (impuntualidad reiterada que afecta al turno). Debes anunciarle que se le va a desvincular.',
+ x:'Tras varias llamadas de atención verbales y escritas, un trabajador no ha corregido una conducta específica (impuntualidad reiterada que afecta al turno). Debes comunicarle que se le va a desvincular.',
  c:{com:'El mensaje debe ser claro y directo, sin rodeos que generen falsas esperanzas.',ie:'Gestionar tu propia tensión y reconocer la reacción del otro permite sostener una conversación difícil con respeto.',der:'Una desvinculación tiene exigencias legales: causales, evidencias, plazos y forma de notificación. Un error puede costarle caro a la organización y a la persona.'},
  r:{pc:'Evaluar si se agotaron las alternativas y si la decisión está bien fundamentada.',lid:'Asumir la responsabilidad de la decisión y cuidar al equipo que se queda.',res:'Sostener la carga emocional de dar una mala noticia.',ci:'Seguir los procedimientos internos y manuales de personal al notificar y documentar.',cdig:'Dejar constancia escrita de lo comunicado.'},
  q:'¿Qué cambiaría si la conversación fuera por videollamada? ¿Y si el trabajador reaccionara con ira?'},
@@ -166,7 +129,6 @@ const SC = [
  c:{rp:'Resolver bajo presión: alternativas de abastecimiento, ajuste de carta y prioridades.',ie:'Mantener la calma propia y la del equipo en alta presión.',com:'Coordinar cocina y servicio, y avisar a los clientes con claridad.'},
  r:{lid:'Repartir tareas y decisiones con rapidez.',res:'Recuperarse del contratiempo y seguir adelante.',fin:'Comparar el costo de otro proveedor con el de perder ventas.',cdig:'Coordinar y contactar proveedores con mensajería o apps.'},
  q:'¿Qué habría hecho Sandra antes del incidente para que hoy sea menos crítico?'},
-/* ---- Desafíos extra (Lógica de Decisión + Habilidades) ---- */
 {t:'El algoritmo que selecciona',extra:true,
  x:'El área de Personas usó un modelo automático para filtrar currículos. Ya se seleccionó a un candidato, pero se ha descubierto que el sistema descartó a otros candidatos altamente competentes porque el algoritmo priorizaba perfiles idénticos a los históricos, dejando fuera a personas con trayectorias no tradicionales. ¿Qué debería hacer la organización ahora?',
  acc:{
@@ -200,19 +162,41 @@ const fresh = () => ({
   done:  SC.map(()=>false),
   student: ''
 });
+
+// [SEGURIDAD] Prevenir DoS por JSON gigante
+const MAX_STATE_SIZE = 50 * 1024; // 50 KB máximo
+
 function load(){
   try{
     const raw=localStorage.getItem(KEY);
     if(!raw) return fresh();
+    
+    // [SEGURIDAD] Límite de tamaño
+    if(raw.length > MAX_STATE_SIZE) {
+      console.warn("Estado local excede el tamaño permitido. Reiniciando.");
+      return fresh();
+    }
+
     const p=JSON.parse(raw), base=fresh();
     if(!p||typeof p!=='object') return base;
+    
+    // [SEGURIDAD] Descartar llaves de contaminación de prototipos
+    ['__proto__', 'constructor', 'prototype'].forEach(k => { if(k in p) delete p[k]; });
+
     base.i = Number.isInteger(p.i)&&p.i>=0&&p.i<SC.length ? p.i : 0;
     base.view = ['welcome','play','res','final'].includes(p.view) ? p.view : 'welcome';
     if(Array.isArray(p.picks)) base.picks = base.picks.map((_,k)=>Array.isArray(p.picks[k])?p.picks[k].filter(id=>SKILLS[id]).slice(0,3):[]);
     if(Array.isArray(p.just))  base.just  = base.just.map((_,k)=>typeof p.just[k]==='string'?p.just[k]:'');
     if(Array.isArray(p.accPick)) base.accPick = base.accPick.map((_,k)=>typeof p.accPick[k]==='string'?p.accPick[k]:null);
     if(Array.isArray(p.done))  base.done  = base.done.map((_,k)=>!!p.done[k]);
-    base.student = typeof p.student==='string' ? p.student : '';
+    base.student = typeof p.student==='string' ? p.student.slice(0, 60) : '';
+    
+    // [SEGURIDAD] Verificar que los accPick correspondan a las llaves válidas
+    base.accPick = base.accPick.map((val, k) => {
+      if (val && SC[k] && SC[k].acc && !SC[k].acc[val]) return null;
+      return val;
+    });
+
     return base;
   }catch(_){ return fresh(); }
 }
@@ -376,11 +360,15 @@ function res(){
   }
 
   if (isExtra) {
+    // [SEGURIDAD] Validar que la acción elegida exista realmente antes de imprimirla
     const chosenAcc = st.accPick[st.i];
+    const accText = (chosenAcc && s.acc[chosenAcc]) ? s.acc[chosenAcc] : 'Acción no registrada';
+
     h += `<h3>Tu decisión</h3>
           <div class="refl" style="background:#fff; border:1px solid var(--b); margin-bottom:14px;">
-            Has elegido: <b>${esc(s.acc[chosenAcc])}</b>
+            Has elegido: <b>${esc(accText)}</b>
           </div>`;
+    
     if (chosenAcc === 'a1' || chosenAcc === 'a3') {
        h += `<div class="alert" style="background:#e3f5ea; border-color:#86efac;"><b>Buena decisión:</b> Priorizar la auditoría o la accesibilidad demuestra pensamiento crítico y responsabilidad ética, evitando normalizar el sesgo o la exclusión.</div>`;
     } else {
@@ -484,7 +472,7 @@ function fin(){
   $.innerHTML = h;
 
   document.getElementById('studentName').addEventListener('input', e=>{
-    st.student = e.target.value; save();
+    st.student = e.target.value.slice(0, 60); save();
   });
   document.getElementById('rst').onclick = ()=>{
     if(!confirm('Se borrará tu progreso actual. ¿Continuar?')) return;
@@ -499,7 +487,7 @@ function fin(){
     t+='Fecha: '+new Date().toLocaleString()+'\n\n';
     SC.forEach((s,k)=>{
       t+=`${s.extra?'[Extra] ':'[Base] '}${k+1}. ${s.t}\n`;
-      if (s.extra && st.accPick[k]) {
+      if (s.extra && st.accPick[k] && s.acc[st.accPick[k]]) {
         t+=`Decisión tomada: ${s.acc[st.accPick[k]]}\n`;
       }
       t+=`Habilidades elegidas: ${st.picks[k].map(i=>SKILLS[i].name).join('; ')||'—'}\n`;
@@ -516,7 +504,7 @@ function fin(){
       situaciones: SC.map((s,k)=>({
         titulo: s.t,
         extra: !!s.extra,
-        decision: s.extra && st.accPick[k] ? s.acc[st.accPick[k]] : null,
+        decision: s.extra && st.accPick[k] && s.acc[st.accPick[k]] ? s.acc[st.accPick[k]] : null,
         elecciones: st.picks[k],
         justificacion: st.just[k],
         indispensables: Object.keys(s.c),
