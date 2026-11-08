@@ -56,17 +56,45 @@ textarea,input[type=text]{width:100%;border:1px solid var(--b);border-radius:8px
 textarea{min-height:80px;resize:vertical;}
 .hint{font-size:.88rem;color:var(--mu);margin:6px 0 0;}
 .hidden{display:none!important;}
-.action-card { border:1px solid var(--b); border-radius:8px; padding:12px; margin-bottom:10px; cursor:pointer; transition:all 0.2s; background:#fff;}
-.action-card:hover { border-color: var(--s); box-shadow: 0 2px 8px rgba(37,99,235,0.1); }
-.action-card.selected { border-color: var(--s); background: var(--sb); outline: 2px solid var(--s); }
-.action-card p { margin: 0; font-size: 0.95rem; }
 
-/* Hexágonos perfectos sin deformación */
+/* Tarjetas de acción para el desafío extra */
+.action-card {
+  border: 1px solid var(--b);
+  border-radius: 8px;
+  padding: 14px 16px;
+  margin-bottom: 12px;
+  cursor: pointer;
+  transition: all 0.2s;
+  background: #fff;
+  position: relative;
+}
+.action-card:hover {
+  border-color: var(--s);
+  box-shadow: 0 2px 8px rgba(37, 99, 235, 0.1);
+}
+.action-card.selected {
+  border-color: var(--s);
+  background: var(--sb);
+  outline: 2px solid var(--s);
+}
+.action-card.selected::after {
+  content: '✓';
+  position: absolute;
+  right: 16px;
+  top: 50%;
+  transform: translateY(-50%);
+  color: var(--s);
+  font-weight: 700;
+  font-size: 1.2rem;
+}
+.action-card p { margin: 0; font-size: 0.95rem; padding-right: 24px; }
+
+/* Hexágonos sin deformación */
 .welcome-graphic { display:flex; flex-direction:column; align-items:center; margin:30px 0; }
 .hex-row { display:flex; justify-content:center; }
 .hex {
   width: clamp(80px, 20vw, 120px);
-  aspect-ratio: 1 / 0.866; /* Proporción exacta de un hexágono regular */
+  aspect-ratio: 1 / 0.866;
   background:#38bdf8;
   clip-path: polygon(50% 0%, 100% 25%, 100% 75%, 50% 100%, 0% 75%, 0% 25%);
   display:flex; align-items:center; justify-content:center;
@@ -78,7 +106,6 @@ textarea{min-height:80px;resize:vertical;}
 .hex.d { background:#3b82f6; }
 .hex.center { background:#fff; width: clamp(66px, 16vw, 100px); z-index:2; border: 3px solid #000; font-size:clamp(0.5rem, 1.2vw, 0.75rem); box-shadow: 0 0 10px rgba(0,0,0,0.1); }
 .hex-shadow { filter: drop-shadow(0 0 4px rgba(0,0,0,0.2)); }
-/* Bordes negros simulados */
 .hex-wrapper { position:relative; display:flex; flex-direction:column; align-items:center; }
 .hex-wrapper::before { content:''; position:absolute; inset:-4px; background:#000; z-index:0; clip-path: polygon(50% 0%, 100% 25%, 100% 75%, 50% 100%, 0% 75%, 0% 25%); transform: scale(1.05); }
 
@@ -115,7 +142,7 @@ const byFam = f => IDS.filter(id => SKILLS[id].fam === f);
 /* ================= Situaciones ================= */
 const SC = [
 {t:'La desvinculación difícil',emo:1,
- x:'Tras varias llamadas de atención verbales y escritas, un trabajador no ha corregido una conducta específica (impuntualidad reiterada que afecta al turno). Debes anunciarle que se le va a desvincular.',
+ x:'Tras varias llamadas de atención verbales y escritas, un trabajador no ha corregido una conducta específica (impuntualidad reiterada que afecta al turno). Debes comunicarle que se le va a desvincular.',
  c:{com:'El mensaje debe ser claro y directo, sin rodeos que generen falsas esperanzas.',ie:'Gestionar tu propia tensión y reconocer la reacción del otro permite sostener una conversación difícil con respeto.',der:'Una desvinculación tiene exigencias legales: causales, evidencias, plazos y forma de notificación. Un error puede costarle caro a la organización y a la persona.'},
  r:{pc:'Evaluar si se agotaron las alternativas y si la decisión está bien fundamentada.',lid:'Asumir la responsabilidad de la decisión y cuidar al equipo que se queda.',res:'Sostener la carga emocional de dar una mala noticia.',ci:'Seguir los procedimientos internos y manuales de personal al notificar y documentar.',cdig:'Dejar constancia escrita de lo comunicado.'},
  q:'¿Qué cambiaría si la conversación fuera por videollamada? ¿Y si el trabajador reaccionara con ira?'},
@@ -164,12 +191,12 @@ const SC = [
 const BASE_COUNT = SC.filter(s=>!s.extra).length;
 
 /* ================= Estado persistente ================= */
-const KEY='hc_state_v5';
+const KEY='hc_state_v6';
 const fresh = () => ({
   i:0, view:'welcome',
   picks: SC.map(()=>[]),
   just:  SC.map(()=>''),
-  accPick: SC.map(()=>null), // Almacena la acción elegida en desafíos extra
+  accPick: SC.map(()=>null),
   done:  SC.map(()=>false),
   student: ''
 });
@@ -274,19 +301,20 @@ function play(){
     <div class="sit">${esc(s.x)}</div>`;
 
   if (isExtra) {
-    // Lógica para Desafíos Extra: Elegir Acción y luego Habilidades
-    h += `<h3>1. ¿Qué acción es la más adecuada para resolver el problema?</h3>
-          <div style="margin: 10px 0;">
-            ${Object.entries(s.acc).map(([key, text]) => `
-              <div class="action-card ${st.accPick[st.i]===key?'selected':''}" data-acc="${key}">
-                <p>${esc(text)}</p>
-              </div>
-            `).join('')}
-          </div>
-          <h3>2. ¿Qué combinación de habilidades respalda tu decisión?</h3>
-          <p class="hint">Elige exactamente 3. Piensa en cómo se potencian entre sí.</p>`;
+    h += `<div class="alert" style="background:#e3f5ea; border-color:#86efac; margin-bottom:20px;">
+      <b>Instrucciones para este desafío:</b> Primero, selecciona la acción que consideres más adecuada. Luego, elige las 3 habilidades que mejor respalden esa decisión.
+    </div>
+    <h3>1. ¿Qué acción es la más adecuada para resolver el problema?</h3>
+    <div style="margin: 10px 0;">
+      ${Object.entries(s.acc).map(([key, text]) => `
+        <div class="action-card ${st.accPick[st.i]===key?'selected':''}" data-acc="${key}">
+          <p>${esc(text)}</p>
+        </div>
+      `).join('')}
+    </div>
+    <h3>2. ¿Qué combinación de habilidades respalda tu decisión?</h3>
+    <p class="hint">Elige exactamente 3. Piensa en cómo se potencian entre sí.</p>`;
   } else {
-    // Lógica para Situaciones Base
     h += `<h3>¿Qué combinación de habilidades se requiere para enfrentar esta situación con éxito?</h3>
           <p class="hint">Elige exactamente 3. Piensa en cómo se potencian entre sí para lograr el resultado esperado.</p>`;
   }
@@ -304,7 +332,10 @@ function play(){
 
   h += `<h3>Justifica brevemente tu elección <span style="font-weight:400;color:var(--mu);font-size:.85rem">(opcional, recomendado)</span></h3>
     <textarea id="just" maxlength="600" placeholder="${isExtra ? '¿Por qué elegiste esa acción y esas habilidades?' : '¿Por qué estas tres? ¿Cómo se complementan?'}">${esc(st.just[st.i])}</textarea>
-    <div class="bar"><span>${p.length} de 3 habilidades elegidas</span>
+    <div class="bar">
+      <span style="color: ${isExtra && !st.accPick[st.i] ? 'var(--rd)' : 'inherit'}; font-weight: ${isExtra && !st.accPick[st.i] ? '600' : 'normal'};">
+        ${isExtra && !st.accPick[st.i] ? '⚠ Falta seleccionar una acción' : p.length + ' de 3 habilidades elegidas'}
+      </span>
       ${isExtra ? '<button class="sec" id="skipExtra">Omitir desafío extra</button>' : ''}
       <button class="main" id="go" ${isReady?'':'disabled'}>Ver análisis</button>
     </div></div>`;
@@ -348,7 +379,7 @@ function res(){
     const chosenAcc = st.accPick[st.i];
     h += `<h3>Tu decisión</h3>
           <div class="refl" style="background:#fff; border:1px solid var(--b); margin-bottom:14px;">
-            Has elegido la acción: <b>${esc(s.acc[chosenAcc])}</b>
+            Has elegido: <b>${esc(s.acc[chosenAcc])}</b>
           </div>`;
     if (chosenAcc === 'a1' || chosenAcc === 'a3') {
        h += `<div class="alert" style="background:#e3f5ea; border-color:#86efac;"><b>Buena decisión:</b> Priorizar la auditoría o la accesibilidad demuestra pensamiento crítico y responsabilidad ética, evitando normalizar el sesgo o la exclusión.</div>`;
