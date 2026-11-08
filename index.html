@@ -6,78 +6,87 @@
 <meta name="description" content="Herramienta interactiva para reflexionar sobre la combinación de habilidades sociales, técnicas y digitales en entornos organizacionales.">
 <title>Habilidad crítica en acción</title>
 <style>
-:root{--h:#1E3A5F;--b:#d9e0ea;--bg:#f4f6fa;--tx:#1f2937;--mu:#5b6678;
---s:#2563eb;--sb:#e6eeff;--t:#15803d;--tb:#e3f5ea;--d:#7e3fc4;--db:#f0e8fb;--am:#b45309;--amb:#fff4dc;--rd:#b91c1c}
-*{box-sizing:border-box}
-body{margin:0;font-family:"Segoe UI",system-ui,sans-serif;background:var(--bg);color:var(--tx);line-height:1.5}
-header{background:var(--h);color:#fff;padding:18px 20px;text-align:center}
-header h1{margin:0;font-size:1.3rem}header p{margin:4px 0 0;opacity:.85;font-size:.9rem}
-main{max-width:860px;margin:0 auto;padding:16px}
-.card{background:#fff;border:1px solid var(--b);border-radius:12px;padding:18px;margin-bottom:14px}
-.stepper{display:flex;gap:6px;margin-bottom:14px}
-.stepper span{flex:1;height:6px;border-radius:3px;background:var(--b)}
-.stepper .on{background:var(--h)}.stepper .cur{background:var(--s)}
-h2{margin:0 0 8px;font-size:1.15rem;color:var(--h)}h3{margin:16px 0 6px;font-size:1rem;color:var(--h)}
-.sit{background:var(--bg);border-left:4px solid var(--h);padding:10px 14px;border-radius:6px}
-.fam{margin:14px 0 6px;font-weight:600;font-size:.85rem;text-transform:uppercase;letter-spacing:.04em}
-.chips{display:flex;flex-wrap:wrap;gap:8px}
-.chip{border:1px solid var(--b);background:#fff;border-radius:999px;padding:7px 13px;font:inherit;font-size:.88rem;cursor:pointer;color:var(--tx)}
-.chip.s{background:var(--sb)}.chip.t{background:var(--tb)}.chip.d{background:var(--db)}
-.chip[aria-pressed=true]{outline:3px solid var(--h);font-weight:600}
-.chip:disabled{opacity:.45;cursor:not-allowed}
-.fs{color:var(--s)}.ft{color:var(--t)}.fd{color:var(--d)}
-.bar{display:flex;gap:10px;align-items:center;justify-content:space-between;margin-top:16px;flex-wrap:wrap}
-button.main{background:var(--h);color:#fff;border:0;border-radius:8px;padding:10px 18px;font:inherit;font-weight:600;cursor:pointer}
-button.main:disabled{opacity:.4;cursor:not-allowed}
-button.sec{background:#fff;color:var(--h);border:1px solid var(--h);border-radius:8px;padding:10px 18px;font:inherit;cursor:pointer}
-button.danger{background:#fff;color:var(--rd);border:1px solid var(--rd);border-radius:8px;padding:10px 18px;font:inherit;cursor:pointer}
-button.main:focus-visible,button.sec:focus-visible,button.danger:focus-visible,.chip:focus-visible{outline:3px solid var(--s);outline-offset:2px}
-.row{border:1px solid var(--b);border-radius:10px;padding:10px 12px;margin:8px 0}
-.tag{display:inline-block;font-size:.72rem;font-weight:700;border-radius:4px;padding:1px 7px;margin-left:6px;color:#fff}
-.k{background:var(--t)}.r{background:var(--s)}.q{background:var(--mu)}.m{background:var(--am)}
-.row p{margin:4px 0 0;font-size:.9rem;color:var(--mu)}
-.alert{background:var(--amb);border:1px solid #f1d28b;border-radius:10px;padding:10px 14px;margin:12px 0;font-size:.92rem}
-.combo{background:var(--tb);border:1px solid #86efac;border-radius:10px;padding:12px 14px;margin:14px 0;font-size:.95rem}
-.combo b{color:var(--t)}
-.refl{background:var(--sb);border-radius:10px;padding:10px 14px;margin-top:12px}
-.meter{display:flex;align-items:center;gap:10px;margin:6px 0;font-size:.9rem}
-.meter b{width:90px}.meter div{height:14px;border-radius:7px}.meter span{color:var(--mu)}
-.mt{flex:1;background:var(--bg);border-radius:7px}
-textarea,input[type=text]{width:100%;border:1px solid var(--b);border-radius:8px;padding:8px 10px;font:inherit;font-size:.9rem;margin-top:6px}
-textarea{min-height:70px;resize:vertical}
-textarea:focus-visible,input[type=text]:focus-visible{outline:3px solid var(--s);outline-offset:2px}
-.hint{font-size:.85rem;color:var(--mu);margin:4px 0 0}
+:root{
+  --h:#1E3A5F; --b:#d9e0ea; --bg:#f4f6fa; --tx:#1f2937; --mu:#5b6678;
+  --s:#2563eb; --sb:#e6eeff; --t:#15803d; --tb:#e3f5ea; --d:#7e3fc4; --db:#f0e8fb;
+  --am:#b45309; --amb:#fff4dc; --rd:#b91c1c;
+  --font: system-ui, -apple-system, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
+}
+*{box-sizing:border-box; font-family: var(--font);}
+body{margin:0;background:var(--bg);color:var(--tx);line-height:1.5;-webkit-font-smoothing:antialiased;}
+header{background:var(--h);color:#fff;padding:20px;text-align:center;}
+header h1{margin:0;font-size:1.4rem;font-weight:700;letter-spacing:-0.02em;}
+header p{margin:4px 0 0;opacity:.85;font-size:.9rem;}
+main{max-width:860px;margin:0 auto;padding:20px 16px;}
+.card{background:#fff;border:1px solid var(--b);border-radius:14px;padding:24px;margin-bottom:16px;box-shadow:0 2px 8px rgba(0,0,0,0.02);}
+.stepper{display:flex;gap:6px;margin-bottom:16px;}
+.stepper span{flex:1;height:6px;border-radius:3px;background:var(--b);transition:background 0.3s;}
+.stepper .on{background:var(--h);} .stepper .cur{background:var(--s);}
+h2{margin:0 0 12px;font-size:1.25rem;color:var(--h);font-weight:700;}
+h3{margin:20px 0 8px;font-size:1.05rem;color:var(--h);font-weight:600;}
+.sit{background:var(--bg);border-left:4px solid var(--h);padding:14px 16px;border-radius:6px;font-size:1.02rem;}
+.fam{margin:18px 0 8px;font-weight:700;font-size:.82rem;text-transform:uppercase;letter-spacing:.05em;}
+.chips{display:flex;flex-wrap:wrap;gap:8px;}
+.chip{border:1px solid var(--b);background:#fff;border-radius:999px;padding:8px 14px;font:inherit;font-size:.9rem;cursor:pointer;color:var(--tx);transition:all 0.2s;}
+.chip:hover:not(:disabled){border-color:var(--mu);box-shadow:0 2px 4px rgba(0,0,0,0.05);}
+.chip.s{background:var(--sb);} .chip.t{background:var(--tb);} .chip.d{background:var(--db);}
+.chip[aria-pressed=true]{outline:3px solid var(--h);font-weight:600;box-shadow:0 2px 6px rgba(0,0,0,0.1);}
+.chip:disabled{opacity:.4;cursor:not-allowed;}
+.fs{color:var(--s);} .ft{color:var(--t);} .fd{color:var(--d);}
+.bar{display:flex;gap:12px;align-items:center;justify-content:space-between;margin-top:20px;flex-wrap:wrap;}
+button.main{background:var(--h);color:#fff;border:0;border-radius:8px;padding:12px 20px;font:inherit;font-weight:600;cursor:pointer;transition:background 0.2s;}
+button.main:hover:not(:disabled){background:#152c4a;} button.main:disabled{opacity:.4;cursor:not-allowed;}
+button.sec{background:#fff;color:var(--h);border:1px solid var(--h);border-radius:8px;padding:12px 20px;font:inherit;cursor:pointer;font-weight:500;transition:background 0.2s;}
+button.sec:hover{background:var(--sb);}
+button.danger{background:#fff;color:var(--rd);border:1px solid var(--rd);border-radius:8px;padding:12px 20px;font:inherit;cursor:pointer;font-weight:500;transition:background 0.2s;}
+button.danger:hover{background:#fef2f2;}
+button:focus-visible, .chip:focus-visible, textarea:focus-visible, input:focus-visible{outline:3px solid var(--s);outline-offset:2px;}
+.row{border:1px solid var(--b);border-radius:10px;padding:12px 14px;margin:10px 0;}
+.tag{display:inline-block;font-size:.72rem;font-weight:700;border-radius:4px;padding:2px 8px;margin-left:6px;color:#fff;}
+.k{background:var(--t);} .r{background:var(--s);} .q{background:var(--mu);} .m{background:var(--am);}
+.row p{margin:6px 0 0;font-size:.92rem;color:var(--mu);}
+.alert{background:var(--amb);border:1px solid #f1d28b;border-radius:10px;padding:14px 16px;margin:14px 0;font-size:.95rem;}
+.combo{background:var(--tb);border:1px solid #86efac;border-radius:10px;padding:14px 16px;margin:16px 0;font-size:.95rem;line-height:1.6;}
+.combo b{color:var(--t);}
+.refl{background:var(--sb);border-radius:10px;padding:14px 16px;margin-top:16px;font-size:.95rem;}
+.meter{display:flex;align-items:center;gap:10px;margin:8px 0;font-size:.92rem;}
+.meter b{width:90px;} .meter div{height:16px;border-radius:8px;} .meter span{color:var(--mu);width:40px;text-align:right;}
+.mt{flex:1;background:var(--bg);border-radius:8px;}
+textarea,input[type=text]{width:100%;border:1px solid var(--b);border-radius:8px;padding:10px 12px;font:inherit;font-size:.95rem;margin-top:8px;}
+textarea{min-height:80px;resize:vertical;}
+.hint{font-size:.88rem;color:var(--mu);margin:6px 0 0;}
+.hidden{display:none!important;}
+.action-card { border:1px solid var(--b); border-radius:8px; padding:12px; margin-bottom:10px; cursor:pointer; transition:all 0.2s; background:#fff;}
+.action-card:hover { border-color: var(--s); box-shadow: 0 2px 8px rgba(37,99,235,0.1); }
+.action-card.selected { border-color: var(--s); background: var(--sb); outline: 2px solid var(--s); }
+.action-card p { margin: 0; font-size: 0.95rem; }
 
-/* Pantalla de bienvenida - Hexágonos */
-.hex-wrapper { display: flex; flex-direction: column; align-items: center; margin: 20px 0; }
-.hex-row { display: flex; justify-content: center; }
+/* Hexágonos perfectos sin deformación */
+.welcome-graphic { display:flex; flex-direction:column; align-items:center; margin:30px 0; }
+.hex-row { display:flex; justify-content:center; }
 .hex {
-  width: 120px; height: 104px; background-color: #2dd4bf; /* Turquesa por defecto */
+  width: clamp(80px, 20vw, 120px);
+  aspect-ratio: 1 / 0.866; /* Proporción exacta de un hexágono regular */
+  background:#38bdf8;
   clip-path: polygon(50% 0%, 100% 25%, 100% 75%, 50% 100%, 0% 75%, 0% 25%);
-  display: flex; align-items: center; justify-content: center;
-  color: #000; font-weight: 700; font-size: 0.85rem; text-align: center;
-  margin: -5px; /* Solapamiento sutil */
-  border: 4px solid transparent; /* Para simular borde */
+  display:flex; align-items:center; justify-content:center;
+  color:#000; font-weight:700; font-size:clamp(0.6rem, 1.5vw, 0.85rem);
+  text-align:center; margin:-5px; position:relative; z-index:1;
 }
-.hex.s { background-color: #2dd4bf; } /* Turquesa */
-.hex.t { background-color: #38bdf8; } /* Celeste */
-.hex.d { background-color: #3b82f6; } /* Azul */
-.hex.center { background-color: #fff; width: 100px; height: 86px; font-size: 0.75rem; position: relative; z-index: 2; border: 2px solid #000;}
-.hex-shadow { filter: drop-shadow(0 0 4px rgba(0,0,0,0.3)); }
+.hex.s { background:#2dd4bf; }
+.hex.t { background:#38bdf8; }
+.hex.d { background:#3b82f6; }
+.hex.center { background:#fff; width: clamp(66px, 16vw, 100px); z-index:2; border: 3px solid #000; font-size:clamp(0.5rem, 1.2vw, 0.75rem); box-shadow: 0 0 10px rgba(0,0,0,0.1); }
+.hex-shadow { filter: drop-shadow(0 0 4px rgba(0,0,0,0.2)); }
+/* Bordes negros simulados */
+.hex-wrapper { position:relative; display:flex; flex-direction:column; align-items:center; }
+.hex-wrapper::before { content:''; position:absolute; inset:-4px; background:#000; z-index:0; clip-path: polygon(50% 0%, 100% 25%, 100% 75%, 50% 100%, 0% 75%, 0% 25%); transform: scale(1.05); }
 
-/* Simulación de bordes negros con sombras para el efecto visual */
-.hex-container { position: relative; display: flex; flex-direction: column; align-items: center; }
-.hex-container::before {
-  content: ''; position: absolute; top: 0; left: 0; right: 0; bottom: 0;
-  background: #000; z-index: -1;
-  clip-path: polygon(50% 0%, 100% 25%, 100% 75%, 50% 100%, 0% 75%, 0% 25%);
-  transform: scale(1.05);
-}
-@media(max-width:640px){main{padding:10px}.card{padding:14px}}
+@media(max-width:640px){main{padding:12px;} .card{padding:18px;} .bar{flex-direction:column;align-items:stretch;} button.main, button.sec, button.danger{width:100%;text-align:center;}}
 </style>
 </head>
 <body>
-<noscript><div style="padding:20px;background:#fff4dc;border-bottom:2px solid #b45309"><b>Esta herramienta necesita JavaScript activado para funcionar.</b> Actívalo en tu navegador y recarga la página.</div></noscript>
+<noscript><div style="padding:20px;background:#fff4dc;border-bottom:2px solid #b45309;text-align:center;"><b>Esta herramienta necesita JavaScript activado para funcionar.</b> Actívalo en tu navegador y recarga la página.</div></noscript>
 <header>
   <h1>Habilidad crítica en acción</h1>
   <p>Gestión de las Relaciones en las Organizaciones</p>
@@ -90,28 +99,20 @@ textarea:focus-visible,input[type=text]:focus-visible{outline:3px solid var(--s)
 /* ================= Catálogo ================= */
 const FAM = { s:'Sociales', t:'Técnicas', d:'Digitales' };
 const SKILLS = {
-  com:{name:'Comunicación efectiva',fam:'s'},
-  ie :{name:'Inteligencia emocional',fam:'s'},
-  lid:{name:'Liderazgo',fam:'s'},
-  pc :{name:'Pensamiento crítico',fam:'s'},
-  rp :{name:'Resolución de problemas',fam:'s'},
-  res:{name:'Resiliencia',fam:'s'},
-  col:{name:'Colaboración',fam:'s'},
-  ada:{name:'Adaptabilidad',fam:'s'},
-  der:{name:'Derecho empresarial y laboral',fam:'t'},
-  dat:{name:'Análisis e interpretación de datos',fam:'t'},
-  fin:{name:'Análisis financiero básico',fam:'t'},
-  gp :{name:'Gestión de proyectos',fam:'t'},
-  proc:{name:'Análisis de procesos de negocio',fam:'t'},
-  ci :{name:'Control interno y cumplimiento',fam:'t'},
-  cdig:{name:'Comunicación digital efectiva',fam:'d'},
-  seg:{name:'Seguridad digital básica',fam:'d'},
+  com:{name:'Comunicación efectiva',fam:'s'}, ie:{name:'Inteligencia emocional',fam:'s'},
+  lid:{name:'Liderazgo',fam:'s'}, pc:{name:'Pensamiento crítico',fam:'s'},
+  rp:{name:'Resolución de problemas',fam:'s'}, res:{name:'Resiliencia',fam:'s'},
+  col:{name:'Colaboración',fam:'s'}, ada:{name:'Adaptabilidad',fam:'s'},
+  der:{name:'Derecho empresarial y laboral',fam:'t'}, dat:{name:'Análisis e interpretación de datos',fam:'t'},
+  fin:{name:'Análisis financiero básico',fam:'t'}, gp:{name:'Gestión de proyectos',fam:'t'},
+  proc:{name:'Análisis de procesos de negocio',fam:'t'}, ci:{name:'Control interno y cumplimiento',fam:'t'},
+  cdig:{name:'Comunicación digital efectiva',fam:'d'}, seg:{name:'Seguridad digital básica',fam:'d'},
   adt:{name:'Adaptación a nuevas tecnologías',fam:'d'}
 };
 const IDS = Object.keys(SKILLS);
 const byFam = f => IDS.filter(id => SKILLS[id].fam === f);
 
-/* ================= Situaciones (5 base + 2 extra) ================= */
+/* ================= Situaciones ================= */
 const SC = [
 {t:'La desvinculación difícil',emo:1,
  x:'Tras varias llamadas de atención verbales y escritas, un trabajador no ha corregido una conducta específica (impuntualidad reiterada que afecta al turno). Debes comunicarle que se le va a desvincular.',
@@ -124,40 +125,51 @@ const SC = [
  r:{com:'Presentar en pocas horas exige un mensaje breve y claro para la gerencia.',fin:'Estimar el impacto en rentabilidad y presupuesto.',lid:'Alinear al equipo detrás del plan.'},
  q:'Con 4 horas, ¿qué dejarías fuera del análisis y qué riesgo asumes al hacerlo?'},
 {t:'El nuevo sistema',
- x:'La empresa implementa un nuevo sistema de gestión de pedidos e inventarios. La capacitación ya se dictó y, durante el plan piloto, parte del equipo se queja: «así ya funcionaba bien».',
+ x:'La empresa implementa un nuevo sistema de gestión de pedidos e inventarios. La capacitación ya se dictó y, durante el plan piloto, parte del equipo se queja: «antes el sistema funcionaba mejor».',
  c:{lid:'Dar sentido al cambio, acompañar a quienes se quejan y sostener el rumbo sin imponerlo a ciegas.',ada:'Ajustar rutinas con flexibilidad y también ajustar el plan a partir de lo que muestra el piloto.',pc:'Separar la resistencia al cambio de las fallas reales del sistema o de la capacitación: no toda queja es resistencia.'},
  r:{adt:'Dominar la nueva plataforma ayuda a resolver dudas y a detectar si el problema es del sistema o del uso.',com:'Escuchar las quejas y explicar el porqué del cambio reduce la incertidumbre.',ie:'Entender el miedo o la pérdida de control detrás de algunas quejas.',gp:'Replanificar fases y riesgos con lo aprendido en el piloto.',dat:'Revisar incidencias y tiempos del piloto para decidir con evidencia.'},
  q:'¿Las quejas son resistencia o información valiosa sobre el sistema y la capacitación? ¿Cómo lo distingues?'},
 {t:'El correo urgente',
- x:'Un martes a las 6 p. m. llega a Finanzas un correo, aparentemente del dueño del negocio, que pide una transferencia urgente a una cuenta nueva y «no comentarlo con nadie». El manual de procedimientos exige la autorización de dos gerentes para pagos de ese monto.',
+ x:'Un martes a las 6 p. m. llega a Finanzas un correo a nombre del dueño de la empresa, solicitando una transferencia urgente a una cuenta nueva y pidiendo no comentarlo con nadie. El manual de procedimientos exige la autorización de dos gerentes para pagos de ese monto.',
  c:{seg:'Reconocer señales de fraude (urgencia, secreto, cuenta nueva) es la primera barrera.',pc:'Cuestionar el mensaje y verificar por otro canal antes de actuar, aunque parezca venir de la máxima autoridad.',ci:'Requiere conocer a fondo los procesos y manuales de cumplimiento para exigir la doble firma: ese control existe justamente para casos como este.'},
- r:{com:'Sostener ante el «dueño» que se seguirá el procedimiento y avisar a los gerentes y a TI.',ie:'Resistir la presión de la urgencia y de la jerarquía.',proc:'Entender el flujo completo del pago ayuda a ver dónde se rompería el control.',fin:'Conocer los montos que activan cada autorización.',cdig:'Usar el canal correcto para verificar y reportar.'},
- q:'¿Cambia algo si el pedido realmente viniera del dueño? ¿Cómo sostener el procedimiento ante la autoridad sin deteriorar la relación?'},
+ r:{com:'Sostener ante el dueño que se seguirá el procedimiento y avisar a los gerentes y a TI.',ie:'Resistir la presión de la urgencia y de la jerarquía.',proc:'Entender el flujo completo del pago ayuda a ver dónde se rompería el control.',fin:'Conocer los montos que activan cada autorización.',cdig:'Usar el canal correcto para verificar y reportar.'},
+ q:'¿Cómo sostener el procedimiento ante la autoridad sin deteriorar la relación?'},
 {t:'El proveedor que falla',emo:1,
  x:'Sandra administra un restaurante. A las 11 a. m. el proveedor principal avisa que no entregará insumos y hay 80 reservas para el almuerzo.',
  c:{rp:'Resolver bajo presión: alternativas de abastecimiento, ajuste de carta y prioridades.',ie:'Mantener la calma propia y la del equipo en alta presión.',com:'Coordinar cocina y servicio, y avisar a los clientes con claridad.'},
  r:{lid:'Repartir tareas y decisiones con rapidez.',res:'Recuperarse del contratiempo y seguir adelante.',fin:'Comparar el costo de otro proveedor con el de perder ventas.',cdig:'Coordinar y contactar proveedores con mensajería o apps.'},
  q:'¿Qué habría hecho Sandra antes del incidente para que hoy sea menos crítico?'},
-/* ---- Desafío extra (opcional) ---- */
+/* ---- Desafíos extra (Lógica de Decisión + Habilidades) ---- */
 {t:'El algoritmo que selecciona',extra:true,
- x:'El área de Personas propone usar un modelo automático para filtrar currículos. En la prueba, el sistema descarta sistemáticamente candidaturas de ciertos perfiles (por ejemplo, personas con brechas laborales o de determinadas zonas). El proveedor dice que «es solo el reflejo de los datos históricos».',
- c:{pc:'Distinguir correlación de causalidad, cuestionar la fuente de los datos y evaluar si el criterio del modelo es justo, más allá de su precisión técnica.',dat:'Revisar sesgos en los datos de entrenamiento y medir resultados por subgrupos antes de confiar en el modelo.',seg:'Proteger datos personales de candidaturas (base legal, finalidad, minimización) y conocer los riesgos de un tratamiento automatizado.'},
- r:{der:'Marco legal y laboral aplicable a decisiones automatizadas y no discriminación.',ci:'Dejar trazas y controles sobre cómo y por qué se descarta una candidatura.',com:'Explicar a la dirección y al equipo por qué un modelo aparentemente «neutral» puede reproducir desigualdades.'},
- q:'Si el modelo acierta el 90 % de las contrataciones históricas, ¿basta para usarlo? ¿Qué harías antes de ponerlo en producción?'},
+ x:'El área de Personas usó un modelo automático para filtrar currículos. Ya se seleccionó a un candidato, pero se ha descubierto que el sistema descartó a otros candidatos altamente competentes porque el algoritmo priorizaba perfiles idénticos a los históricos, dejando fuera a personas con trayectorias no tradicionales. ¿Qué debería hacer la organización ahora?',
+ acc:{
+   a1:'Revocar la decisión, revisar manualmente las candidaturas descartadas y auditar el algoritmo antes de volver a usarlo.',
+   a2:'Mantener la selección actual (el candidato elegido es bueno), pero documentar el sesgo para el próximo proceso.',
+   a3:'Suspender el uso del algoritmo de inmediato y volver al 100% a la revisión manual de aquí en adelante.'
+ },
+ c:{pc:'Evaluar la gravedad del sesgo y decidir si se puede confiar en el sistema a futuro.',dat:'Revisar los datos de entrenamiento y medir cuántos candidatos competentes fueron descartados.',seg:'Garantizar la protección de datos y la transparencia en el tratamiento de los perfiles descartados.'},
+ r:{der:'Marco legal y laboral sobre discriminación algorítmica.',com:'Explicar la situación y la decisión a la dirección y a los candidatos afectados.',ci:'Dejar trazas de la auditoría para futuras revisiones de cumplimiento.'},
+ q:'¿Es suficiente con corregir este proceso o hay que rediseñar la forma en que la organización evalúa el talento?'},
 {t:'La herramienta que deja gente afuera',extra:true,
- x:'El equipo adopta una nueva app interna para reportar horas y solicitar vacaciones. Funciona bien, pero una persona con baja visión no puede usarla con su lector de pantalla y otra con conexión lenta pierde sesiones constantemente.',
- c:{ada:'Ajustar la solución a contextos reales de uso y proponer alternativas mientras se corrige la herramienta.',cdig:'Documentar y escalar el problema por los canales correctos, con evidencia clara para el proveedor o TI.',ie:'Reconocer el impacto que la exclusión tiene en la persona y evitar que cargue sola con el problema.'},
- r:{adt:'Explorar opciones de configuración o herramientas equivalentes.',com:'Escuchar y validar la experiencia de quienes quedan afuera antes de proponer soluciones.',col:'Coordinar entre usuarios, TI y proveedor para que la corrección llegue a tiempo.',seg:'Resguardar datos y accesos mientras se aplican parches o alternativas temporales.'},
- q:'¿Es un problema «de la persona» o «de la herramienta»? ¿Quién debe asumir el costo de la adaptación?'}
+ x:'El equipo adoptó una nueva app interna para reportar horas. Funciona bien, pero una persona con baja visión no puede usarla con su lector de pantalla. El equipo lleva dos semanas usando la app, pero esta persona sigue reportando sus horas en un Excel manual, lo que le genera retrasos y la hace sentir excluida. ¿Qué acción debería tomarse?',
+ acc:{
+   a1:'Solicitar a TI y al proveedor una actualización urgente de accesibilidad, y asignar una alternativa temporal para la persona afectada.',
+   a2:'Pedir a la persona afectada que siga usando el Excel manual, ya que es una solución que funciona y no retrasa al equipo.',
+   a3:'Cambiar la herramienta por otra que sea accesible para todos, aunque eso implique un costo extra y un nuevo periodo de adaptación.'
+ },
+ c:{ada:'Ajustar la solución a las necesidades reales sin romper la operación.',ie:'Reconocer el impacto emocional de la exclusión y no dejar que la persona cargue sola con el problema.',cdig:'Documentar la falla y escalarla a TI con evidencia clara.'},
+ r:{col:'Coordinar entre usuarios, TI y proveedor para encontrar la solución.',com:'Escuchar activamente a la persona afectada antes de decidir.',adt:'Evaluar la curva de aprendizaje si se cambia a una nueva herramienta.'},
+ q:'¿Es justo que la adaptación recaiga solo en la persona afectada o es una responsabilidad de la organización?'}
 ];
-const BASE_COUNT = SC.filter(s=>!s.extra).length; // 5
+const BASE_COUNT = SC.filter(s=>!s.extra).length;
 
 /* ================= Estado persistente ================= */
-const KEY='hc_state_v4';
+const KEY='hc_state_v5';
 const fresh = () => ({
-  i:0, view:'welcome', // 'welcome', 'play', 'res', 'final'
+  i:0, view:'welcome',
   picks: SC.map(()=>[]),
   just:  SC.map(()=>''),
+  accPick: SC.map(()=>null), // Almacena la acción elegida en desafíos extra
   done:  SC.map(()=>false),
   student: ''
 });
@@ -171,6 +183,7 @@ function load(){
     base.view = ['welcome','play','res','final'].includes(p.view) ? p.view : 'welcome';
     if(Array.isArray(p.picks)) base.picks = base.picks.map((_,k)=>Array.isArray(p.picks[k])?p.picks[k].filter(id=>SKILLS[id]).slice(0,3):[]);
     if(Array.isArray(p.just))  base.just  = base.just.map((_,k)=>typeof p.just[k]==='string'?p.just[k]:'');
+    if(Array.isArray(p.accPick)) base.accPick = base.accPick.map((_,k)=>typeof p.accPick[k]==='string'?p.accPick[k]:null);
     if(Array.isArray(p.done))  base.done  = base.done.map((_,k)=>!!p.done[k]);
     base.student = typeof p.student==='string' ? p.student : '';
     return base;
@@ -223,26 +236,26 @@ function welcome(){
   let h = `<div class="card" style="text-align:center;">
     <h2>Bienvenido/a a Habilidad crítica en acción</h2>
     
-    <div class="hex-wrapper">
+    <div class="welcome-graphic">
       <div class="hex-row">
-        <div class="hex s hex-shadow">SOCIALES</div>
+        <div class="hex-wrapper"><div class="hex s hex-shadow">SOCIALES</div></div>
       </div>
       <div class="hex-row" style="margin-top: -20px;">
-        <div class="hex t hex-shadow">TÉCNICAS</div>
-        <div class="hex center" style="margin: 0 -10px; z-index: 2;">HABILIDADES</div>
-        <div class="hex d hex-shadow">DIGITALES</div>
+        <div class="hex-wrapper"><div class="hex t hex-shadow">TÉCNICAS</div></div>
+        <div class="hex-wrapper" style="margin: 0 -10px; z-index: 2;"><div class="hex center">HABILIDADES</div></div>
+        <div class="hex-wrapper"><div class="hex d hex-shadow">DIGITALES</div></div>
       </div>
     </div>
 
-    <p style="font-size:1.05rem; margin-top:20px; text-align:left; background:var(--sb); padding:12px; border-radius:8px;">
+    <p style="font-size:1.05rem; margin-top:20px; text-align:left; background:var(--sb); padding:14px; border-radius:8px; line-height: 1.6;">
       <b>El objetivo fundamental de esta actividad no es elegir la habilidad "más importante", sino encontrar la mejor combinación de habilidades (sociales, técnicas y digitales) para enfrentar cada situación con éxito.</b>
     </p>
-    <p class="hint" style="text-align:left; margin-top:14px;">
+    <p class="hint" style="text-align:left; margin-top:16px; font-size: .95rem;">
       A continuación, verás 5 situaciones base de la vida organizacional. En cada una, deberás elegir exactamente 3 habilidades y justificar por qué esa combinación es la más adecuada. 
-      Al final, podrás ver tu perfil y, si lo deseas, aceptar un desafío extra de 2 situaciones avanzadas.
+      Al final, podrás ver tu perfil y, si lo deseas, aceptar un desafío extra de 2 situaciones avanzadas con un formato diferente (decisión + habilidades).
     </p>
 
-    <div class="bar" style="justify-content:center; margin-top:20px;">
+    <div class="bar" style="justify-content:center; margin-top:24px;">
       <button class="main" id="start">Comenzar el recorrido</button>
     </div>
   </div>`;
@@ -254,13 +267,30 @@ function welcome(){
 
 /* ================= Vista: jugar ================= */
 function play(){
-  const s = SC[st.i], p = st.picks[st.i];
-  const isExtra = !!s.extra;
+  const s = SC[st.i], p = st.picks[st.i], isExtra = !!s.extra;
   const label = isExtra ? `Desafío extra ${st.i - BASE_COUNT + 1} de ${SC.length - BASE_COUNT}` : `Situación ${st.i+1} de ${BASE_COUNT}`;
+  
   let h = stepper() + `<div class="card"><h2>${label}: ${esc(s.t)}</h2>
-    <div class="sit">${esc(s.x)}</div>
-    <h3>¿Qué combinación de habilidades se requiere para enfrentar esta situación con éxito?</h3>
-    <p class="hint">Elige exactamente 3. Piensa en cómo se potencian entre sí para lograr el resultado esperado.</p>`;
+    <div class="sit">${esc(s.x)}</div>`;
+
+  if (isExtra) {
+    // Lógica para Desafíos Extra: Elegir Acción y luego Habilidades
+    h += `<h3>1. ¿Qué acción es la más adecuada para resolver el problema?</h3>
+          <div style="margin: 10px 0;">
+            ${Object.entries(s.acc).map(([key, text]) => `
+              <div class="action-card ${st.accPick[st.i]===key?'selected':''}" data-acc="${key}">
+                <p>${esc(text)}</p>
+              </div>
+            `).join('')}
+          </div>
+          <h3>2. ¿Qué combinación de habilidades respalda tu decisión?</h3>
+          <p class="hint">Elige exactamente 3. Piensa en cómo se potencian entre sí.</p>`;
+  } else {
+    // Lógica para Situaciones Base
+    h += `<h3>¿Qué combinación de habilidades se requiere para enfrentar esta situación con éxito?</h3>
+          <p class="hint">Elige exactamente 3. Piensa en cómo se potencian entre sí para lograr el resultado esperado.</p>`;
+  }
+
   for(const f of ['s','t','d']){
     h += `<div class="fam f${f}">${FAM[f]}</div><div class="chips">` +
       byFam(f).map(id=>{
@@ -269,14 +299,26 @@ function play(){
         return `<button type="button" class="chip ${f}" data-id="${id}" aria-pressed="${on}" ${dis?'disabled':''}>${esc(SKILLS[id].name)}</button>`;
       }).join('') + '</div>';
   }
-  h += `<h3>Justifica brevemente tu combinación <span style="font-weight:400;color:var(--mu);font-size:.85rem">(opcional, recomendado)</span></h3>
-    <textarea id="just" maxlength="600" placeholder="¿Por qué estas tres? ¿Cómo se complementan para resolver el problema?">${esc(st.just[st.i])}</textarea>
-    <p class="hint">Tu justificación se guardará y aparecerá en el resumen exportado.</p>
-    <div class="bar"><span>${p.length} de 3 elegidas</span>
+
+  const isReady = p.length===3 && (!isExtra || st.accPick[st.i]);
+
+  h += `<h3>Justifica brevemente tu elección <span style="font-weight:400;color:var(--mu);font-size:.85rem">(opcional, recomendado)</span></h3>
+    <textarea id="just" maxlength="600" placeholder="${isExtra ? '¿Por qué elegiste esa acción y esas habilidades?' : '¿Por qué estas tres? ¿Cómo se complementan?'}">${esc(st.just[st.i])}</textarea>
+    <div class="bar"><span>${p.length} de 3 habilidades elegidas</span>
       ${isExtra ? '<button class="sec" id="skipExtra">Omitir desafío extra</button>' : ''}
-      <button class="main" id="go" ${p.length===3?'':'disabled'}>Ver análisis</button>
+      <button class="main" id="go" ${isReady?'':'disabled'}>Ver análisis</button>
     </div></div>`;
+  
   $.innerHTML = h;
+
+  if (isExtra) {
+    $.querySelectorAll('.action-card').forEach(card => {
+      card.onclick = () => {
+        st.accPick[st.i] = card.dataset.acc;
+        save(); play();
+      };
+    });
+  }
 
   $.querySelectorAll('.chip').forEach(b=>{
     b.onclick = () => {
@@ -295,43 +337,62 @@ function play(){
 
 /* ================= Vista: análisis ================= */
 function res(){
-  const s=SC[st.i], p=st.picks[st.i];
+  const s=SC[st.i], p=st.picks[st.i], isExtra = !!s.extra;
   let h = stepper() + `<div class="card"><h2>Análisis: ${esc(s.t)}</h2>`;
+  
   if(st.just[st.i].trim()){
     h += `<div class="refl" style="margin-top:0"><b>Tu justificación:</b> ${esc(st.just[st.i].trim())}</div>`;
   }
-  h += '<h3>Tus elecciones</h3>';
+
+  if (isExtra) {
+    const chosenAcc = st.accPick[st.i];
+    h += `<h3>Tu decisión</h3>
+          <div class="refl" style="background:#fff; border:1px solid var(--b); margin-bottom:14px;">
+            Has elegido la acción: <b>${esc(s.acc[chosenAcc])}</b>
+          </div>`;
+    if (chosenAcc === 'a1' || chosenAcc === 'a3') {
+       h += `<div class="alert" style="background:#e3f5ea; border-color:#86efac;"><b>Buena decisión:</b> Priorizar la auditoría o la accesibilidad demuestra pensamiento crítico y responsabilidad ética, evitando normalizar el sesgo o la exclusión.</div>`;
+    } else {
+       h += `<div class="alert" style="background:#fef2f2; border-color:#fca5a5; color:#b91c1c;"><b>Revisión:</b> Aunque la acción mitiga el problema, puede seguir dejando en desventaja a los afectados. ¿Es sostenible a largo plazo?</div>`;
+    }
+    h += '<h3>Habilidades que respaldan tu decisión</h3>';
+  } else {
+    h += '<h3>Tus elecciones</h3>';
+  }
+
   p.forEach(id=>{
     if(s.c[id]) h += row(id,'Indispensable','k',s.c[id]);
     else if(s.r[id]) h += row(id,'Aporta','r',s.r[id]);
     else h += row(id,'Discutible','q','No figura entre las más críticas aquí, pero podrías defenderla: ¿qué detalle de la situación la volvería indispensable?');
   });
 
-  // Pregunta de combinación
   const inds = Object.keys(s.c);
   if(inds.length > 1){
     const nombres = inds.map(id=>`<b>${esc(SKILLS[id].name)}</b> <span class="fam f${SKILLS[id].fam}" style="font-size:.78rem">(${FAM[SKILLS[id].fam]})</span>`).join(' + ');
     h += `<div class="combo">
       <b>¿Qué combinación se requiere para enfrentar la situación con éxito?</b><br>
-      Para resolverla con éxito se requiere articular: ${nombres}.
+      Se requiere articular: ${nombres}.
       <br><small>¿Cómo se potencian entre sí? ¿Qué pasaría si falta una de ellas?</small>
     </div>`;
   }
 
   const miss = Object.keys(s.c).filter(id=>!p.includes(id));
   if(miss.length) h += '<h3>Indispensables que no elegiste</h3>' + miss.map(id=>row(id,'Punto ciego','m',s.c[id])).join('');
+  
   const need = Object.keys(s.c).filter(id=>SKILLS[id].fam!=='s');
   if(need.length && !need.some(id=>p.includes(id))){
     h += s.emo
-      ? '<div class="alert"><b>Ojo con la carga emocional:</b> cuando una situación es tensa, la atención se va casi sin darnos cuenta hacia lo social (calmar, comunicar, empatizar). Aquí también era indispensable una habilidad técnica o digital. ¿Cuál era y qué habría pasado sin ella?</div>'
+      ? '<div class="alert"><b>Ojo con la carga emocional:</b> cuando una situación es tensa, la atención se va hacia lo social. Aquí también era indispensable una habilidad técnica o digital. ¿Cuál era y qué habría pasado sin ella?</div>'
       : '<div class="alert"><b>Ojo:</b> en esta situación era indispensable alguna habilidad técnica o digital. ¿Cuál y por qué?</div>';
   }
+
   h += `<div class="refl"><b>Para reflexionar:</b> ${esc(s.q)}<br><small>Este análisis es una lectura posible, no la única respuesta correcta: discútela con tu grupo.</small></div>
     <div class="bar">
       <button class="sec" id="back">Cambiar mi elección</button>
       <button class="main" id="next">${st.i<SC.length-1?'Siguiente':'Ver mi perfil'}</button>
     </div></div>`;
   $.innerHTML = h;
+  
   document.getElementById('back').onclick = ()=>{ st.view='play'; save(); play(); };
   document.getElementById('next').onclick = ()=>{
     if(st.i<SC.length-1){ st.i++; st.view='play'; save(); play(); }
@@ -363,24 +424,22 @@ function fin(){
   }
   let lectura;
   if(c.s/tot>=0.7 && (pc.t+pc.d)>0){
-    lectura = '<div class="alert"><b>Tendencia:</b> elegiste lo social casi por defecto, y quedaron puntos ciegos técnicos/digitales. Revisa cada situación: ¿qué conocimiento técnico o digital te faltó considerar?</div>';
+    lectura = '<div class="alert"><b>Tendencia:</b> elegiste lo social casi por defecto, y quedaron puntos ciegos técnicos/digitales. Revisa cada situación: ¿qué conocimiento te faltó considerar?</div>';
   } else if(c.s/tot>=0.7){
-    lectura = '<div class="alert"><b>Tendencia:</b> elegiste lo social casi por defecto. Pregúntate si en algún caso una habilidad técnica o digital era la que realmente marcaba la diferencia.</div>';
+    lectura = '<div class="alert"><b>Tendencia:</b> elegiste lo social casi por defecto. Pregúntate si en algún caso una habilidad técnica o digital marcaba la diferencia.</div>';
   } else if((c.t+c.d)/tot>=0.7 && pc.s>0){
-    lectura = '<div class="alert"><b>Tendencia:</b> te inclinaste por lo técnico/digital, y quedaron puntos ciegos sociales. ¿Qué se pierde cuando una solución técnicamente correcta no se comunica ni se sostiene con las personas?</div>';
+    lectura = '<div class="alert"><b>Tendencia:</b> te inclinaste por lo técnico/digital, y quedaron puntos ciegos sociales. ¿Qué se pierde cuando no se comunica ni se sostiene con las personas?</div>';
   } else {
-    lectura = '<div class="alert"><b>Lectura:</b> combinaste distintas familias. Pregúntate en qué situaciones fue la combinación —y no una sola habilidad— lo que marcó la diferencia.</div>';
+    lectura = '<div class="alert"><b>Lectura:</b> combinaste distintas familias. Pregúntate en qué situaciones fue la combinación lo que marcó la diferencia.</div>';
   }
   h += lectura;
 
-  // Identificación opcional del alumno
   h += `<h3>Identificación (opcional)</h3>
     <p class="hint">Si quieres que tu docente pueda tabular tu resultado, escribe tu nombre o código.</p>
     <input type="text" id="studentName" maxlength="60" placeholder="Nombre o código" value="${esc(st.student)}">`;
 
-  // Desafío extra
   if(baseDone && !extraDone){
-    h += `<div class="bar" style="justify-content:center;margin-top:14px">
+    h += `<div class="bar" style="justify-content:center;margin-top:20px">
       <button class="sec" id="goExtra">Aceptar el desafío extra (2 situaciones avanzadas)</button>
     </div>`;
   }
@@ -409,9 +468,11 @@ function fin(){
     t+='Fecha: '+new Date().toLocaleString()+'\n\n';
     SC.forEach((s,k)=>{
       t+=`${s.extra?'[Extra] ':'[Base] '}${k+1}. ${s.t}\n`;
-      t+=`Mis elecciones: ${st.picks[k].map(i=>SKILLS[i].name).join('; ')||'—'}\n`;
+      if (s.extra && st.accPick[k]) {
+        t+=`Decisión tomada: ${s.acc[st.accPick[k]]}\n`;
+      }
+      t+=`Habilidades elegidas: ${st.picks[k].map(i=>SKILLS[i].name).join('; ')||'—'}\n`;
       if(st.just[k].trim()) t+=`Justificación: ${st.just[k].trim()}\n`;
-      t+=`Indispensables según el análisis: ${Object.keys(s.c).map(i=>SKILLS[i].name).join('; ')}\n`;
       t+=`Combinación requerida: ${Object.keys(s.c).map(i=>SKILLS[i].name).join(' + ')}\n`;
       t+=`Reflexión: ${s.q}\n\n`;
     });
@@ -424,10 +485,10 @@ function fin(){
       situaciones: SC.map((s,k)=>({
         titulo: s.t,
         extra: !!s.extra,
+        decision: s.extra && st.accPick[k] ? s.acc[st.accPick[k]] : null,
         elecciones: st.picks[k],
         justificacion: st.just[k],
         indispensables: Object.keys(s.c),
-        aportan: Object.keys(s.r),
         combinacion: Object.keys(s.c)
       })),
       perfil: { sociales:c.s, tecnicas:c.t, digitales:c.d },
