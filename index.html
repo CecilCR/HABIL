@@ -10,10 +10,8 @@
 --s:#2563eb;--sb:#e6eeff;--t:#15803d;--tb:#e3f5ea;--d:#7e3fc4;--db:#f0e8fb;--am:#b45309;--amb:#fff4dc;--rd:#b91c1c}
 *{box-sizing:border-box}
 body{margin:0;font-family:"Segoe UI",system-ui,sans-serif;background:var(--bg);color:var(--tx);line-height:1.5}
-header{background:var(--h);color:#fff;padding:18px 20px;display:flex;justify-content:space-between;align-items:flex-start;gap:14px;flex-wrap:wrap}
+header{background:var(--h);color:#fff;padding:18px 20px;text-align:center}
 header h1{margin:0;font-size:1.3rem}header p{margin:4px 0 0;opacity:.85;font-size:.9rem}
-.teacher-toggle{background:rgba(255,255,255,.15);border:1px solid rgba(255,255,255,.35);color:#fff;border-radius:8px;padding:8px 12px;font:inherit;font-size:.82rem;cursor:pointer}
-.teacher-toggle[aria-pressed=true]{background:#fff;color:var(--h);font-weight:600}
 main{max-width:860px;margin:0 auto;padding:16px}
 .card{background:#fff;border:1px solid var(--b);border-radius:12px;padding:18px;margin-bottom:14px}
 .stepper{display:flex;gap:6px;margin-bottom:14px}
@@ -33,7 +31,7 @@ button.main{background:var(--h);color:#fff;border:0;border-radius:8px;padding:10
 button.main:disabled{opacity:.4;cursor:not-allowed}
 button.sec{background:#fff;color:var(--h);border:1px solid var(--h);border-radius:8px;padding:10px 18px;font:inherit;cursor:pointer}
 button.danger{background:#fff;color:var(--rd);border:1px solid var(--rd);border-radius:8px;padding:10px 18px;font:inherit;cursor:pointer}
-button.main:focus-visible,button.sec:focus-visible,button.danger:focus-visible,.chip:focus-visible,.teacher-toggle:focus-visible{outline:3px solid var(--s);outline-offset:2px}
+button.main:focus-visible,button.sec:focus-visible,button.danger:focus-visible,.chip:focus-visible{outline:3px solid var(--s);outline-offset:2px}
 .row{border:1px solid var(--b);border-radius:10px;padding:10px 12px;margin:8px 0}
 .tag{display:inline-block;font-size:.72rem;font-weight:700;border-radius:4px;padding:1px 7px;margin-left:6px;color:#fff}
 .k{background:var(--t)}.r{background:var(--s)}.q{background:var(--mu)}.m{background:var(--am)}
@@ -42,9 +40,6 @@ button.main:focus-visible,button.sec:focus-visible,button.danger:focus-visible,.
 .combo{background:var(--tb);border:1px solid #86efac;border-radius:10px;padding:12px 14px;margin:14px 0;font-size:.95rem}
 .combo b{color:var(--t)}
 .refl{background:var(--sb);border-radius:10px;padding:10px 14px;margin-top:12px}
-.teacher-box{background:#fff8e1;border:1px dashed #b45309;border-radius:10px;padding:10px 14px;margin:12px 0;font-size:.9rem}
-.teacher-box h4{margin:0 0 6px;color:var(--am);font-size:.9rem;text-transform:uppercase;letter-spacing:.04em}
-.teacher-box ul{margin:4px 0;padding-left:18px}.teacher-box li{margin:2px 0}
 .meter{display:flex;align-items:center;gap:10px;margin:6px 0;font-size:.9rem}
 .meter b{width:90px}.meter div{height:14px;border-radius:7px}.meter span{color:var(--mu)}
 .mt{flex:1;background:var(--bg);border-radius:7px}
@@ -52,23 +47,40 @@ textarea,input[type=text]{width:100%;border:1px solid var(--b);border-radius:8px
 textarea{min-height:70px;resize:vertical}
 textarea:focus-visible,input[type=text]:focus-visible{outline:3px solid var(--s);outline-offset:2px}
 .hint{font-size:.85rem;color:var(--mu);margin:4px 0 0}
-.hidden{display:none!important}
-.dropzone{border:2px dashed var(--b);border-radius:10px;padding:18px;text-align:center;color:var(--mu);font-size:.9rem;cursor:pointer;margin:8px 0}
-.dropzone.hover{border-color:var(--s);background:var(--sb);color:var(--s)}
-table.agg{width:100%;border-collapse:collapse;font-size:.86rem;margin-top:8px}
-table.agg th,table.agg td{border:1px solid var(--b);padding:6px 8px;text-align:left}
-table.agg th{background:var(--bg);font-weight:600}
-@media(max-width:640px){main{padding:10px}.card{padding:14px}header{flex-direction:column}}
+
+/* Pantalla de bienvenida - Hexágonos */
+.hex-wrapper { display: flex; flex-direction: column; align-items: center; margin: 20px 0; }
+.hex-row { display: flex; justify-content: center; }
+.hex {
+  width: 120px; height: 104px; background-color: #2dd4bf; /* Turquesa por defecto */
+  clip-path: polygon(50% 0%, 100% 25%, 100% 75%, 50% 100%, 0% 75%, 0% 25%);
+  display: flex; align-items: center; justify-content: center;
+  color: #000; font-weight: 700; font-size: 0.85rem; text-align: center;
+  margin: -5px; /* Solapamiento sutil */
+  border: 4px solid transparent; /* Para simular borde */
+}
+.hex.s { background-color: #2dd4bf; } /* Turquesa */
+.hex.t { background-color: #38bdf8; } /* Celeste */
+.hex.d { background-color: #3b82f6; } /* Azul */
+.hex.center { background-color: #fff; width: 100px; height: 86px; font-size: 0.75rem; position: relative; z-index: 2; border: 2px solid #000;}
+.hex-shadow { filter: drop-shadow(0 0 4px rgba(0,0,0,0.3)); }
+
+/* Simulación de bordes negros con sombras para el efecto visual */
+.hex-container { position: relative; display: flex; flex-direction: column; align-items: center; }
+.hex-container::before {
+  content: ''; position: absolute; top: 0; left: 0; right: 0; bottom: 0;
+  background: #000; z-index: -1;
+  clip-path: polygon(50% 0%, 100% 25%, 100% 75%, 50% 100%, 0% 75%, 0% 25%);
+  transform: scale(1.05);
+}
+@media(max-width:640px){main{padding:10px}.card{padding:14px}}
 </style>
 </head>
 <body>
 <noscript><div style="padding:20px;background:#fff4dc;border-bottom:2px solid #b45309"><b>Esta herramienta necesita JavaScript activado para funcionar.</b> Actívalo en tu navegador y recarga la página.</div></noscript>
 <header>
-  <div>
-    <h1>Habilidad crítica en acción</h1>
-    <p>Gestión de las Relaciones en las Organizaciones · Elige la mejor combinación de habilidades para cada situación</p>
-  </div>
-  <button class="teacher-toggle" id="tToggle" aria-pressed="false" title="Muestra las claves y el panel de resultados agregados">Modo docente: OFF</button>
+  <h1>Habilidad crítica en acción</h1>
+  <p>Gestión de las Relaciones en las Organizaciones</p>
 </header>
 <main id="app"></main>
 <script>
@@ -141,9 +153,9 @@ const SC = [
 const BASE_COUNT = SC.filter(s=>!s.extra).length; // 5
 
 /* ================= Estado persistente ================= */
-const KEY='hc_state_v3', TKEY='hc_teacher_v1';
+const KEY='hc_state_v4';
 const fresh = () => ({
-  i:0, view:'play',
+  i:0, view:'welcome', // 'welcome', 'play', 'res', 'final'
   picks: SC.map(()=>[]),
   just:  SC.map(()=>''),
   done:  SC.map(()=>false),
@@ -156,7 +168,7 @@ function load(){
     const p=JSON.parse(raw), base=fresh();
     if(!p||typeof p!=='object') return base;
     base.i = Number.isInteger(p.i)&&p.i>=0&&p.i<SC.length ? p.i : 0;
-    base.view = ['play','res','final','panel'].includes(p.view) ? p.view : 'play';
+    base.view = ['welcome','play','res','final'].includes(p.view) ? p.view : 'welcome';
     if(Array.isArray(p.picks)) base.picks = base.picks.map((_,k)=>Array.isArray(p.picks[k])?p.picks[k].filter(id=>SKILLS[id]).slice(0,3):[]);
     if(Array.isArray(p.just))  base.just  = base.just.map((_,k)=>typeof p.just[k]==='string'?p.just[k]:'');
     if(Array.isArray(p.done))  base.done  = base.done.map((_,k)=>!!p.done[k]);
@@ -166,30 +178,17 @@ function load(){
 }
 const st = load();
 const save = () => { try{ localStorage.setItem(KEY, JSON.stringify(st)); }catch(_){} };
-let teacherMode = (function(){ try{ return localStorage.getItem(TKEY)==='1'; }catch(_){ return false; } })();
-const setTeacher = v => { teacherMode=v; try{ localStorage.setItem(TKEY, v?'1':'0'); }catch(_){} };
 
 /* ================= Helpers UI ================= */
 const $ = document.getElementById('app');
 const esc = s => String(s).replace(/[&<>"']/g, c => ({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]));
 
 const stepper = () => '<div class="stepper" aria-hidden="true">' +
-  SC.map((_,k)=>`<span class="${st.view==='final'||st.view==='panel'||k<st.i?'on':k===st.i?'cur':''}"></span>`).join('') + '</div>';
+  SC.map((_,k)=>`<span class="${st.view==='final'||k<st.i?'on':k===st.i?'cur':''}"></span>`).join('') + '</div>';
 
 function row(id, tag, cls, why){
   const S = SKILLS[id];
   return `<div class="row"><b>${esc(S.name)}</b> <span class="fam f${S.fam}" style="font-size:.75rem">(${FAM[S.fam]})</span><span class="tag ${cls}">${tag}</span><p>${esc(why)}</p></div>`;
-}
-
-function teacherBox(s){
-  if(!teacherMode) return '';
-  const claves = Object.keys(s.c).map(id=>`<li><b>${esc(SKILLS[id].name)}</b> (${FAM[SKILLS[id].fam]}): ${esc(s.c[id])}</li>`).join('');
-  const aportan = Object.keys(s.r).map(id=>`<li><b>${esc(SKILLS[id].name)}</b> (${FAM[SKILLS[id].fam]}): ${esc(s.r[id])}</li>`).join('');
-  return `<div class="teacher-box"><h4>Claves docentes (solo visibles en modo docente)</h4>
-    <b>Indispensables:</b><ul>${claves}</ul>
-    <b>Aportan:</b><ul>${aportan}</ul>
-    ${s.emo?'<p><b>Nota:</b> situación con alta carga emocional; útil para discutir el sesgo de elegir solo lo social.</p>':''}
-  </div>`;
 }
 
 function puntosCiegos(){
@@ -211,24 +210,46 @@ function download(text, filename, mime){
   setTimeout(()=>URL.revokeObjectURL(url), 1500);
 }
 
-/* ================= Toggle docente ================= */
-const tToggle = document.getElementById('tToggle');
-function renderToggle(){
-  tToggle.setAttribute('aria-pressed', teacherMode ? 'true':'false');
-  tToggle.textContent = 'Modo docente: ' + (teacherMode?'ON':'OFF');
-  tToggle.title = teacherMode
-    ? 'Mostrando claves y panel agregado. Clic para ocultar.'
-    : 'Muestra las claves docentes y el panel de resultados agregados.';
-}
-tToggle.onclick = ()=>{ setTeacher(!teacherMode); renderToggle(); route(); };
-renderToggle();
-
 /* ================= Ruteo ================= */
 function route(){
-  if(st.view==='panel') panel();
+  if(st.view==='welcome') welcome();
   else if(st.view==='final') fin();
   else if(st.view==='res' && st.done[st.i]) res();
   else { st.view='play'; play(); }
+}
+
+/* ================= Vista: Bienvenida ================= */
+function welcome(){
+  let h = `<div class="card" style="text-align:center;">
+    <h2>Bienvenido/a a Habilidad crítica en acción</h2>
+    
+    <div class="hex-wrapper">
+      <div class="hex-row">
+        <div class="hex s hex-shadow">SOCIALES</div>
+      </div>
+      <div class="hex-row" style="margin-top: -20px;">
+        <div class="hex t hex-shadow">TÉCNICAS</div>
+        <div class="hex center" style="margin: 0 -10px; z-index: 2;">HABILIDADES</div>
+        <div class="hex d hex-shadow">DIGITALES</div>
+      </div>
+    </div>
+
+    <p style="font-size:1.05rem; margin-top:20px; text-align:left; background:var(--sb); padding:12px; border-radius:8px;">
+      <b>El objetivo fundamental de esta actividad no es elegir la habilidad "más importante", sino encontrar la mejor combinación de habilidades (sociales, técnicas y digitales) para enfrentar cada situación con éxito.</b>
+    </p>
+    <p class="hint" style="text-align:left; margin-top:14px;">
+      A continuación, verás 5 situaciones base de la vida organizacional. En cada una, deberás elegir exactamente 3 habilidades y justificar por qué esa combinación es la más adecuada. 
+      Al final, podrás ver tu perfil y, si lo deseas, aceptar un desafío extra de 2 situaciones avanzadas.
+    </p>
+
+    <div class="bar" style="justify-content:center; margin-top:20px;">
+      <button class="main" id="start">Comenzar el recorrido</button>
+    </div>
+  </div>`;
+  $.innerHTML = h;
+  document.getElementById('start').onclick = () => {
+    st.i = 0; st.view = 'play'; save(); play();
+  };
 }
 
 /* ================= Vista: jugar ================= */
@@ -238,9 +259,8 @@ function play(){
   const label = isExtra ? `Desafío extra ${st.i - BASE_COUNT + 1} de ${SC.length - BASE_COUNT}` : `Situación ${st.i+1} de ${BASE_COUNT}`;
   let h = stepper() + `<div class="card"><h2>${label}: ${esc(s.t)}</h2>
     <div class="sit">${esc(s.x)}</div>
-    ${teacherBox(s)}
     <h3>¿Qué combinación de habilidades se requiere para enfrentar esta situación con éxito?</h3>
-    <p class="hint">Elige exactamente 3. Pueden ser de una misma familia o combinarse entre varias. Piensa en cómo se potencian entre sí para lograr el resultado.</p>`;
+    <p class="hint">Elige exactamente 3. Piensa en cómo se potencian entre sí para lograr el resultado esperado.</p>`;
   for(const f of ['s','t','d']){
     h += `<div class="fam f${f}">${FAM[f]}</div><div class="chips">` +
       byFam(f).map(id=>{
@@ -250,7 +270,7 @@ function play(){
       }).join('') + '</div>';
   }
   h += `<h3>Justifica brevemente tu combinación <span style="font-weight:400;color:var(--mu);font-size:.85rem">(opcional, recomendado)</span></h3>
-    <textarea id="just" maxlength="600" placeholder="¿Por qué estas tres y no otras? ¿Cómo se combinan para resolver la situación?">${esc(st.just[st.i])}</textarea>
+    <textarea id="just" maxlength="600" placeholder="¿Por qué estas tres? ¿Cómo se complementan para resolver el problema?">${esc(st.just[st.i])}</textarea>
     <p class="hint">Tu justificación se guardará y aparecerá en el resumen exportado.</p>
     <div class="bar"><span>${p.length} de 3 elegidas</span>
       ${isExtra ? '<button class="sec" id="skipExtra">Omitir desafío extra</button>' : ''}
@@ -287,13 +307,13 @@ function res(){
     else h += row(id,'Discutible','q','No figura entre las más críticas aquí, pero podrías defenderla: ¿qué detalle de la situación la volvería indispensable?');
   });
 
-  // NUEVO: Pregunta de combinación
+  // Pregunta de combinación
   const inds = Object.keys(s.c);
   if(inds.length > 1){
     const nombres = inds.map(id=>`<b>${esc(SKILLS[id].name)}</b> <span class="fam f${SKILLS[id].fam}" style="font-size:.78rem">(${FAM[SKILLS[id].fam]})</span>`).join(' + ');
     h += `<div class="combo">
       <b>¿Qué combinación se requiere para enfrentar la situación con éxito?</b><br>
-      No basta con una sola habilidad. Para resolverla con éxito se requiere articular: ${nombres}.
+      Para resolverla con éxito se requiere articular: ${nombres}.
       <br><small>¿Cómo se potencian entre sí? ¿Qué pasaría si falta una de ellas?</small>
     </div>`;
   }
@@ -369,7 +389,6 @@ function fin(){
     <div class="bar">
       <button class="sec" id="expTxt">Resumen (.txt)</button>
       <button class="sec" id="expJson">Datos (.json)</button>
-      ${teacherMode ? '<button class="sec" id="openPanel">Panel docente</button>' : ''}
       <button class="danger" id="rst">Volver a empezar</button>
     </div></div>`;
   $.innerHTML = h;
@@ -383,8 +402,6 @@ function fin(){
   };
   const goExtra = document.getElementById('goExtra');
   if(goExtra) goExtra.onclick = ()=>{ st.i = BASE_COUNT; st.view='play'; save(); play(); };
-  const openPanel = document.getElementById('openPanel');
-  if(openPanel) openPanel.onclick = ()=>{ st.view='panel'; save(); panel(); };
 
   document.getElementById('expTxt').onclick = ()=>{
     let t='HABILIDAD CRÍTICA EN ACCIÓN — Resumen\n';
@@ -421,135 +438,6 @@ function fin(){
       : 'habilidad_critica_datos.json';
     download(JSON.stringify(data,null,2), fname, 'application/json');
   };
-}
-
-/* ================= Vista: panel docente ================= */
-const agg = { files: [] };
-function panel(){
-  let h = `<div class="card"><h2>Panel docente — Resultados agregados</h2>
-    <p class="hint">Carga los archivos <code>.json</code> exportados por los alumnos. Todo el procesamiento ocurre en tu navegador: nada se envía a ningún servidor.</p>
-    <div class="dropzone" id="dz">Arrastra aquí los .json o haz clic para seleccionar archivos</div>
-    <input type="file" id="fileIn" accept=".json,application/json" multiple class="hidden">
-    <div id="aggResult"></div>
-    <div class="bar">
-      <button class="sec" id="backHome">Volver</button>
-      <button class="sec" id="clearAgg">Limpiar</button>
-      <button class="main" id="exportAgg" disabled>Exportar reporte (.csv)</button>
-    </div>
-  </div>`;
-  $.innerHTML = h;
-
-  const dz = document.getElementById('dz');
-  const fileIn = document.getElementById('fileIn');
-  dz.onclick = ()=> fileIn.click();
-  dz.ondragover = e => { e.preventDefault(); dz.classList.add('hover'); };
-  dz.ondragleave = ()=> dz.classList.remove('hover');
-  dz.ondrop = e => {
-    e.preventDefault(); dz.classList.remove('hover');
-    handleFiles(e.dataTransfer.files);
-  };
-  fileIn.onchange = e => handleFiles(e.target.files);
-
-  document.getElementById('backHome').onclick = ()=>{ st.view='final'; save(); fin(); };
-  document.getElementById('clearAgg').onclick = ()=>{ agg.files=[]; renderAgg(); };
-  document.getElementById('exportAgg').onclick = exportCSV;
-  renderAgg();
-}
-function handleFiles(fileList){
-  const files = Array.from(fileList||[]);
-  let ok=0, fail=0;
-  files.forEach(f=>{
-    const reader = new FileReader();
-    reader.onload = ()=>{
-      try{
-        const data = JSON.parse(reader.result);
-        if(!data || !Array.isArray(data.situaciones)) throw new Error('formato');
-        data._filename = f.name;
-        agg.files.push(data); ok++;
-      }catch(_){ fail++; }
-      if(ok+fail===files.length) renderAgg(fail);
-    };
-    reader.readAsText(f, 'utf-8');
-  });
-}
-function renderAgg(fail){
-  const box = document.getElementById('aggResult');
-  if(!agg.files.length){
-    box.innerHTML = `<p class="hint" style="margin-top:10px">Aún no hay archivos cargados.</p>`;
-    document.getElementById('exportAgg').disabled = true;
-    return;
-  }
-  document.getElementById('exportAgg').disabled = false;
-
-  const n = agg.files.length;
-  const famTot={s:0,t:0,d:0};
-  const skillCount={}, skillOmit={};
-  IDS.forEach(id=>{ skillCount[id]=0; skillOmit[id]=0; });
-  const blindBySit = SC.map(()=>({s:0,t:0,d:0}));
-  const perStudent = [];
-
-  agg.files.forEach(data=>{
-    const p = data.perfil || {sociales:0,tecnicas:0,digitales:0};
-    famTot.s += p.sociales||0; famTot.t += p.tecnicas||0; famTot.d += p.digitales||0;
-    (data.situaciones||[]).forEach((sit,k)=>{
-      (sit.elecciones||[]).forEach(id=>{ if(skillCount[id]!==undefined) skillCount[id]++; });
-      (sit.indispensables||[]).forEach(id=>{
-        if(!(sit.elecciones||[]).includes(id)){
-          if(skillOmit[id]!==undefined) skillOmit[id]++;
-          if(blindBySit[k] && SKILLS[id]) blindBySit[k][SKILLS[id].fam]++;
-        }
-      });
-    });
-    perStudent.push({
-      alumno: data.alumno || data._filename || '(sin nombre)',
-      fecha: data.fecha || '',
-      sociales: p.sociales||0, tecnicas: p.tecnicas||0, digitales: p.digitales||0,
-      puntosCiegos: data.puntosCiegos || {s:0,t:0,d:0}
-    });
-  });
-
-  const famTotal = famTot.s+famTot.t+famTot.d || 1;
-  const bar = (val, tot, color) => `<div class="mt"><div style="width:${Math.round(val/tot*100)}%;background:${color}"></div></div>`;
-
-  let out = `<h3>Resumen (${n} respuesta${n!==1?'s':''}${fail?` · ${fail} archivo(s) inválido(s)`:''})</h3>`;
-  out += `<h3>Distribución de elecciones por familia</h3>`;
-  for(const f of ['s','t','d']){
-    out += `<div class="meter"><b>${FAM[f]}</b>${bar(famTot[f],famTotal,`var(--${f})`)}<span>${Math.round(famTot[f]/famTotal*100)} %</span></div>`;
-  }
-
-  const topSkills = IDS.map(id=>({id,n:skillCount[id]})).filter(x=>x.n>0).sort((a,b)=>b.n-a.n).slice(0,5);
-  const topOmit  = IDS.map(id=>({id,n:skillOmit[id]})).filter(x=>x.n>0).sort((a,b)=>b.n-a.n).slice(0,5);
-
-  out += `<h3>Habilidades más elegidas</h3><ul>` +
-    (topSkills.length?topSkills.map(x=>`<li><b>${esc(SKILLS[x.id].name)}</b> — ${x.n} elección(es)</li>`).join(''):'<li>—</li>') + `</ul>`;
-  out += `<h3>Puntos ciegos más frecuentes (indispensables no elegidas)</h3><ul>` +
-    (topOmit.length?topOmit.map(x=>`<li><b>${esc(SKILLS[x.id].name)}</b> — ${x.n} omisión(es)</li>`).join(''):'<li>—</li>') + `</ul>`;
-
-  out += `<h3>Puntos ciegos por situación</h3><table class="agg"><thead><tr><th>Situación</th><th>Sociales</th><th>Técnicas</th><th>Digitales</th></tr></thead><tbody>`;
-  SC.forEach((s,k)=>{
-    const b = blindBySit[k];
-    out += `<tr><td>${k+1}. ${esc(s.t)}</td><td>${b.s}</td><td>${b.t}</td><td>${b.d}</td></tr>`;
-  });
-  out += `</tbody></table>`;
-
-  out += `<h3>Detalle por alumno</h3><table class="agg"><thead><tr><th>Alumno</th><th>Sociales</th><th>Técnicas</th><th>Digitales</th><th>Puntos ciegos (S/T/D)</th></tr></thead><tbody>`;
-  perStudent.forEach(r=>{
-    out += `<tr><td>${esc(r.alumno)}</td><td>${r.sociales}</td><td>${r.tecnicas}</td><td>${r.digitales}</td>
-      <td>${r.puntosCiegos.s||0} / ${r.puntosCiegos.t||0} / ${r.puntosCiegos.d||0}</td></tr>`;
-  });
-  out += `</tbody></table>`;
-  box.innerHTML = out;
-}
-function exportCSV(){
-  if(!agg.files.length) return;
-  const rows = [['Alumno','Fecha','Sociales','Tecnicas','Digitales','PC_S','PC_T','PC_D']];
-  agg.files.forEach(data=>{
-    const p = data.perfil || {sociales:0,tecnicas:0,digitales:0};
-    const pc = data.puntosCiegos || {s:0,t:0,d:0};
-    rows.push([data.alumno || data._filename || '', data.fecha || '', p.sociales||0, p.tecnicas||0, p.digitales||0, pc.s||0, pc.t||0, pc.d||0]);
-  });
-  const csv = rows.map(r=>r.map(v=>`"${String(v).replace(/"/g,'""')}"`).join(',')).join('\n');
-  download('\ufeff'+csv, 'reporte_agregado.csv', 'text/csv');
 }
 
 /* ================= Arranque ================= */
