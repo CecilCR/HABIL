@@ -8,8 +8,15 @@
 <style>
 :root{
   --h:#1E3A5F; --b:#d9e0ea; --bg:#f4f6fa; --tx:#1f2937; --mu:#5b6678;
-  --s:#2563eb; --sb:#e6eeff; --t:#15803d; --tb:#e3f5ea; --d:#7e3fc4; --db:#f0e8fb;
-  --am:#b45309; --amb:#fff4dc; --rd:#b91c1c;
+  /* Familias (coherentes con el gráfico de bienvenida) */
+  --s:#0f766e; --sb:#d6f6f2; --sg:#3ddad7;
+  --t:#0369a1; --tb:#d9f0fb; --tg:#35c8ee;
+  --d:#1d4ed8; --db:#dbe6fd; --dg:#2b8fd6;
+  /* Interfaz */
+  --ac:#2563eb; --acb:#e6eeff;
+  --ok:#15803d; --okb:#e3f5ea; --okl:#86efac;
+  --am:#b45309; --amb:#fff4dc; --aml:#f1d28b;
+  --rd:#b91c1c; --rdb:#fef2f2; --rdl:#fca5a5;
   --font: system-ui, -apple-system, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
 }
 *{box-sizing:border-box; font-family: var(--font);}
@@ -21,58 +28,84 @@ main{max-width:860px;margin:0 auto;padding:20px 16px;}
 .card{background:#fff;border:1px solid var(--b);border-radius:14px;padding:24px;margin-bottom:16px;box-shadow:0 2px 8px rgba(0,0,0,0.02);}
 .stepper{display:flex;gap:6px;margin-bottom:16px;}
 .stepper span{flex:1;height:6px;border-radius:3px;background:var(--b);transition:background 0.3s;}
-.stepper .on{background:var(--h);} .stepper .cur{background:var(--s);}
+.stepper .on{background:var(--h);} .stepper .cur{background:var(--ac);}
+.stepper .gap{margin-left:14px;}
 h2{margin:0 0 12px;font-size:1.25rem;color:var(--h);font-weight:700;}
+h2:focus{outline:none;}
 h3{margin:20px 0 8px;font-size:1.05rem;color:var(--h);font-weight:600;}
 .sit{background:var(--bg);border-left:4px solid var(--h);padding:14px 16px;border-radius:6px;font-size:1.02rem;}
 .fam{margin:18px 0 8px;font-weight:700;font-size:.82rem;text-transform:uppercase;letter-spacing:.05em;}
 .chips{display:flex;flex-wrap:wrap;gap:8px;}
 .chip{border:1px solid var(--b);background:#fff;border-radius:999px;padding:8px 14px;font:inherit;font-size:.9rem;cursor:pointer;color:var(--tx);transition:all 0.2s;}
-.chip:hover:not(:disabled){border-color:var(--mu);box-shadow:0 2px 4px rgba(0,0,0,0.05);}
+.chip:hover{border-color:var(--mu);box-shadow:0 2px 4px rgba(0,0,0,0.05);}
 .chip.s{background:var(--sb);} .chip.t{background:var(--tb);} .chip.d{background:var(--db);}
 .chip[aria-pressed=true]{outline:3px solid var(--h);font-weight:600;box-shadow:0 2px 6px rgba(0,0,0,0.1);}
-.chip:disabled{opacity:.4;cursor:not-allowed;}
 .fs{color:var(--s);} .ft{color:var(--t);} .fd{color:var(--d);}
 .bar{display:flex;gap:12px;align-items:center;justify-content:space-between;margin-top:20px;flex-wrap:wrap;}
 button.main{background:var(--h);color:#fff;border:0;border-radius:8px;padding:12px 20px;font:inherit;font-weight:600;cursor:pointer;transition:background 0.2s;}
 button.main:hover:not(:disabled){background:#152c4a;} button.main:disabled{opacity:.4;cursor:not-allowed;}
 button.sec{background:#fff;color:var(--h);border:1px solid var(--h);border-radius:8px;padding:12px 20px;font:inherit;cursor:pointer;font-weight:500;transition:background 0.2s;}
-button.sec:hover{background:var(--sb);}
+button.sec:hover{background:var(--acb);}
 button.danger{background:#fff;color:var(--rd);border:1px solid var(--rd);border-radius:8px;padding:12px 20px;font:inherit;cursor:pointer;font-weight:500;transition:background 0.2s;}
-button.danger:hover{background:#fef2f2;}
-button:focus-visible, .chip:focus-visible, textarea:focus-visible, input:focus-visible{outline:3px solid var(--s);outline-offset:2px;}
+button.danger:hover{background:var(--rdb);}
+button:focus-visible, .chip:focus-visible, textarea:focus-visible, input:focus-visible{outline:3px solid var(--ac);outline-offset:2px;}
 .row{border:1px solid var(--b);border-radius:10px;padding:12px 14px;margin:10px 0;}
 .tag{display:inline-block;font-size:.72rem;font-weight:700;border-radius:4px;padding:2px 8px;margin-left:6px;color:#fff;}
-.k{background:var(--t);} .r{background:var(--s);} .q{background:var(--mu);} .m{background:var(--am);}
+.k{background:var(--ok);} .r{background:var(--ac);} .q{background:var(--mu);} .m{background:var(--am);}
+.lv-best{background:var(--ok);} .lv-partial{background:var(--am);} .lv-weak{background:var(--rd);}
 .row p{margin:6px 0 0;font-size:.92rem;color:var(--mu);}
-.alert{background:var(--amb);border:1px solid #f1d28b;border-radius:10px;padding:14px 16px;margin:14px 0;font-size:.95rem;}
-.combo{background:var(--tb);border:1px solid #86efac;border-radius:10px;padding:14px 16px;margin:16px 0;font-size:.95rem;line-height:1.6;}
-.combo b{color:var(--t);}
-.refl{background:var(--sb);border-radius:10px;padding:14px 16px;margin-top:16px;font-size:.95rem;}
+.alert{background:var(--amb);border:1px solid var(--aml);border-radius:10px;padding:14px 16px;margin:14px 0;font-size:.95rem;}
+.alert.ok{background:var(--okb);border-color:var(--okl);}
+.alert.bad{background:var(--rdb);border-color:var(--rdl);color:var(--rd);}
+.alert.info{background:var(--acb);border-color:#bcd0fb;}
+.combo{background:var(--okb);border:1px solid var(--okl);border-radius:10px;padding:14px 16px;margin:16px 0;font-size:.95rem;line-height:1.6;}
+.combo b{color:var(--ok);}
+.match{background:var(--acb);border-radius:10px;padding:12px 16px;margin:14px 0;font-size:.95rem;}
+.refl{background:var(--acb);border-radius:10px;padding:14px 16px;margin-top:16px;font-size:.95rem;}
 .meter{display:flex;align-items:center;gap:10px;margin:8px 0;font-size:.92rem;}
-.meter b{width:90px;} .meter div{height:16px;border-radius:8px;} .meter span{color:var(--mu);width:40px;text-align:right;}
+.meter b{width:90px;flex:none;} .meter div{height:16px;border-radius:8px;} .meter span{color:var(--mu);width:64px;text-align:right;flex:none;}
 .mt{flex:1;background:var(--bg);border-radius:8px;}
 textarea,input[type=text]{width:100%;border:1px solid var(--b);border-radius:8px;padding:10px 12px;font:inherit;font-size:.95rem;margin-top:8px;}
 textarea{min-height:80px;resize:vertical;}
 .hint{font-size:.88rem;color:var(--mu);margin:6px 0 0;}
 .hidden{display:none!important;}
+.warn{color:var(--rd);font-weight:600;}
+.linkbtn{background:none;border:0;color:var(--mu);text-decoration:underline;cursor:pointer;font:inherit;font-size:.85rem;padding:8px;}
+.linkbtn:hover{color:var(--rd);}
 
-.action-card { border: 1px solid var(--b); border-radius: 8px; padding: 14px 16px; margin-bottom: 12px; cursor: pointer; transition: all 0.2s; background: #fff; position: relative; }
-.action-card:hover { border-color: var(--s); box-shadow: 0 2px 8px rgba(37, 99, 235, 0.1); }
-.action-card.selected { border-color: var(--s); background: var(--sb); outline: 2px solid var(--s); }
-.action-card.selected::after { content: '✓'; position: absolute; right: 16px; top: 50%; transform: translateY(-50%); color: var(--s); font-weight: 700; font-size: 1.2rem; }
-.action-card p { margin: 0; font-size: 0.95rem; padding-right: 24px; }
+/* Opciones de decisión (desafíos extra) */
+.action-card{display:block;width:100%;text-align:left;border:1px solid var(--b);border-radius:8px;padding:14px 44px 14px 16px;margin-bottom:12px;cursor:pointer;transition:all 0.2s;background:#fff;position:relative;font:inherit;font-size:.95rem;color:var(--tx);}
+.action-card:hover{border-color:var(--ac);box-shadow:0 2px 8px rgba(37,99,235,0.1);}
+.action-card[aria-pressed=true]{border-color:var(--ac);background:var(--acb);outline:2px solid var(--ac);}
+.action-card[aria-pressed=true]::after{content:'✓';position:absolute;right:16px;top:50%;transform:translateY(-50%);color:var(--ac);font-weight:700;font-size:1.2rem;}
+.action-card b{margin-right:6px;color:var(--h);}
 
-.welcome-graphic { display:flex; flex-direction:column; align-items:center; margin:30px 0; }
-.hex-row { display:flex; justify-content:center; }
-.hex { width: clamp(80px, 20vw, 120px); aspect-ratio: 1 / 0.866; background:#38bdf8; clip-path: polygon(50% 0%, 100% 25%, 100% 75%, 50% 100%, 0% 75%, 0% 25%); display:flex; align-items:center; justify-content:center; color:#000; font-weight:700; font-size:clamp(0.6rem, 1.5vw, 0.85rem); text-align:center; margin:-5px; position:relative; z-index:1; }
-.hex.s { background:#2dd4bf; } .hex.t { background:#38bdf8; } .hex.d { background:#3b82f6; }
-.hex.center { background:#fff; width: clamp(66px, 16vw, 100px); z-index:2; border: 3px solid #000; font-size:clamp(0.5rem, 1.2vw, 0.75rem); box-shadow: 0 0 10px rgba(0,0,0,0.1); }
-.hex-shadow { filter: drop-shadow(0 0 4px rgba(0,0,0,0.2)); }
-.hex-wrapper { position:relative; display:flex; flex-direction:column; align-items:center; }
-.hex-wrapper::before { content:''; position:absolute; inset:-4px; background:#000; z-index:0; clip-path: polygon(50% 0%, 100% 25%, 100% 75%, 50% 100%, 0% 75%, 0% 25%); transform: scale(1.05); }
+/* Bienvenida */
+.hero{text-align:center;}
+.hero svg{display:block;width:100%;max-width:400px;height:auto;margin:18px auto 8px;}
+.lead{font-size:1.05rem;text-align:left;background:var(--acb);padding:14px 16px;border-radius:8px;line-height:1.6;margin:18px 0 0;}
+.legend{display:grid;grid-template-columns:repeat(3,1fr);gap:12px;margin:20px 0 0;text-align:left;}
+.legend>div{border:1px solid var(--b);border-radius:10px;padding:12px 14px;border-top-width:5px;}
+.legend h4{margin:0 0 6px;font-size:.95rem;}
+.legend p{margin:0;font-size:.82rem;color:var(--mu);line-height:1.45;}
+.legend .ls{border-top-color:var(--sg);} .legend .lt{border-top-color:var(--tg);} .legend .ld{border-top-color:var(--dg);}
+.steps{text-align:left;margin:18px 0 0;padding-left:20px;font-size:.95rem;}
+.steps li{margin:4px 0;}
 
-@media(max-width:640px){main{padding:12px;} .card{padding:18px;} .bar{flex-direction:column;align-items:stretch;} button.main, button.sec, button.danger{width:100%;text-align:center;}}
+/* Tabla de perfil */
+.tbl{overflow-x:auto;margin:10px 0;}
+table{border-collapse:collapse;width:100%;font-size:.88rem;min-width:560px;}
+caption{text-align:left;font-size:.85rem;color:var(--mu);padding-bottom:6px;}
+th,td{border:1px solid var(--b);padding:8px 10px;text-align:left;vertical-align:top;}
+th{background:var(--bg);color:var(--h);}
+
+@media(max-width:640px){main{padding:12px;} .card{padding:18px;} .bar{flex-direction:column;align-items:stretch;} button.main, button.sec, button.danger{width:100%;text-align:center;} .legend{grid-template-columns:1fr;}}
+@media(prefers-reduced-motion:reduce){*{transition:none!important;}}
+@media print{
+  body{background:#fff;} header{background:#fff;color:#000;border-bottom:2px solid #000;}
+  .bar,.stepper,button,.noprint{display:none!important;}
+  .card{box-shadow:none;border:none;padding:0;} .row,.alert,.refl,.combo{break-inside:avoid;}
+}
 </style>
 </head>
 <body>
@@ -85,6 +118,8 @@ textarea{min-height:80px;resize:vertical;}
 <script>
 (function(){
 'use strict';
+
+const VERSION = 'v7';
 
 /* ================= Catálogo ================= */
 const FAM = { s:'Sociales', t:'Técnicas', d:'Digitales' };
@@ -102,7 +137,9 @@ const SKILLS = {
 const IDS = Object.keys(SKILLS);
 const byFam = f => IDS.filter(id => SKILLS[id].fam === f);
 
-/* ================= Situaciones ================= */
+/* ================= Situaciones =================
+   c = indispensables (siempre 3) · r = aportan · acc = opciones de decisión (solo desafíos extra) */
+const LV = { best:'Decisión más sólida', partial:'Decisión parcial', weak:'Decisión débil' };
 const SC = [
 {t:'La desvinculación difícil',emo:1,
  x:'Tras varias llamadas de atención verbales y escritas, un trabajador no ha corregido una conducta específica (impuntualidad reiterada que afecta al turno). Debes anunciarle que se le va a desvincular.',
@@ -116,8 +153,8 @@ const SC = [
  q:'Con 4 horas, ¿qué dejarías fuera del análisis y qué riesgo asumes al hacerlo?'},
 {t:'El nuevo sistema',
  x:'La empresa implementa un nuevo sistema de gestión de pedidos e inventarios. La capacitación ya se dictó y, durante el plan piloto, parte del equipo se queja: «antes el sistema funcionaba mejor».',
- c:{lid:'Dar sentido al cambio, acompañar a quienes se quejan y sostener el rumbo sin imponerlo a ciegas.',ada:'Ajustar rutinas con flexibilidad y también ajustar el plan a partir de lo que muestra el piloto.',pc:'Separar la resistencia al cambio de las fallas reales del sistema o de la capacitación: no toda queja es resistencia.'},
- r:{adt:'Dominar la nueva plataforma ayuda a resolver dudas y a detectar si el problema es del sistema o del uso.',com:'Escuchar las quejas y explicar el porqué del cambio reduce la incertidumbre.',ie:'Entender el miedo o la pérdida de control detrás de algunas quejas.',gp:'Replanificar fases y riesgos con lo aprendido en el piloto.',dat:'Revisar incidencias y tiempos del piloto para decidir con evidencia.'},
+ c:{lid:'Dar sentido al cambio, acompañar a quienes se quejan y sostener el rumbo sin imponerlo a ciegas.',pc:'Separar la resistencia al cambio de las fallas reales del sistema o de la capacitación: no toda queja es resistencia.',adt:'Dominar la nueva plataforma permite distinguir si el problema está en el sistema o en el uso, y resolver dudas concretas del equipo.'},
+ r:{ada:'Ajustar rutinas con flexibilidad y también ajustar el plan a partir de lo que muestra el piloto.',com:'Escuchar las quejas y explicar el porqué del cambio reduce la incertidumbre.',ie:'Entender el miedo o la pérdida de control detrás de algunas quejas.',gp:'Replanificar fases y riesgos con lo aprendido en el piloto.',dat:'Revisar incidencias y tiempos del piloto para decidir con evidencia.'},
  q:'¿Las quejas son resistencia o información valiosa sobre el sistema y la capacitación? ¿Cómo lo distingues?'},
 {t:'El correo urgente',
  x:'Un martes a las 6 p. m. llega a Finanzas un correo a nombre del dueño de la empresa, solicitando una transferencia urgente a una cuenta nueva y pidiendo no comentarlo con nadie. El manual de procedimientos exige la autorización de dos gerentes para pagos de ese monto.',
@@ -126,106 +163,124 @@ const SC = [
  q:'¿Cómo sostener el procedimiento ante la autoridad sin deteriorar la relación?'},
 {t:'El proveedor que falla',emo:1,
  x:'Sandra administra un restaurante. A las 11 a. m. el proveedor principal avisa que no entregará insumos y hay 80 reservas para el almuerzo.',
- c:{rp:'Resolver bajo presión: alternativas de abastecimiento, ajuste de carta y prioridades.',ie:'Mantener la calma propia y la del equipo en alta presión.',com:'Coordinar cocina y servicio, y avisar a los clientes con claridad.'},
- r:{lid:'Repartir tareas y decisiones con rapidez.',res:'Recuperarse del contratiempo y seguir adelante.',fin:'Comparar el costo de otro proveedor con el de perder ventas.',cdig:'Coordinar y contactar proveedores con mensajería o apps.'},
+ c:{rp:'Resolver bajo presión: alternativas de abastecimiento, ajuste de carta y prioridades.',fin:'Comparar el costo de un proveedor de emergencia (más caro) con el de perder las 80 reservas es la decisión económica central de la mañana.',cdig:'Contactar proveedores alternativos y avisar a clientes y equipo por mensajería o apps toma minutos y define si el servicio se sostiene.'},
+ r:{ie:'Mantener la calma propia y la del equipo en alta presión.',com:'Coordinar cocina y servicio, y avisar a los clientes con claridad.',lid:'Repartir tareas y decisiones con rapidez.',res:'Recuperarse del contratiempo y seguir adelante.'},
  q:'¿Qué habría hecho Sandra antes del incidente para que hoy sea menos crítico?'},
 {t:'El algoritmo que selecciona',extra:true,
  x:'El área de Personas usó un modelo automático para filtrar currículos. Ya se seleccionó a un candidato, pero se ha descubierto que el sistema descartó a otros candidatos altamente competentes porque el algoritmo priorizaba perfiles idénticos a los históricos, dejando fuera a personas con trayectorias no tradicionales. ¿Qué debería hacer la organización ahora?',
- acc:{
-   a1:'Revocar la decisión, revisar manualmente las candidaturas descartadas y auditar el algoritmo antes de volver a usarlo.',
-   a2:'Mantener la selección actual (el candidato elegido es bueno), pero documentar el sesgo para el próximo proceso.',
-   a3:'Suspender el uso del algoritmo de inmediato y volver al 100% a la revisión manual de aquí en adelante.'
- },
- c:{pc:'Evaluar la gravedad del sesgo y decidir si se puede confiar en el sistema a futuro.',dat:'Revisar los datos de entrenamiento y medir cuántos candidatos competentes fueron descartados.',seg:'Garantizar la protección de datos y la transparencia en el tratamiento de los perfiles descartados.'},
- r:{der:'Marco legal y laboral sobre discriminación algorítmica.',com:'Explicar la situación y la decisión a la dirección y a los candidatos afectados.',ci:'Dejar trazas de la auditoría para futuras revisiones de cumplimiento.'},
+ acc:[
+   {k:'a1',lvl:'best',x:'Revocar la decisión, revisar manualmente las candidaturas descartadas y auditar el algoritmo antes de volver a usarlo.',
+    fb:'Repara a las personas afectadas (revisa lo descartado) y corrige la causa (audita el modelo) antes de seguir. Costo: más tiempo y trabajo manual en el corto plazo.'},
+   {k:'a2',lvl:'weak',x:'Mantener la selección actual (el candidato elegido es bueno), pero documentar el sesgo para el próximo proceso.',
+    fb:'Que el candidato elegido sea bueno no repara a quienes fueron excluidos injustamente. Documentar sin corregir normaliza el sesgo y deja a la organización expuesta legal y reputacionalmente.'},
+   {k:'a3',lvl:'partial',x:'Suspender el uso del algoritmo de inmediato y volver al 100 % a la revisión manual de aquí en adelante.',
+    fb:'Frena el daño a futuro, pero no repara a los candidatos ya descartados y es una sobrerreacción: la revisión manual también tiene sesgos. Lo sólido es auditar y corregir el modelo, no solo abandonarlo.'}
+ ],
+ c:{pc:'Evaluar la gravedad del sesgo y decidir si se puede confiar en el sistema a futuro.',dat:'Revisar los datos de entrenamiento y medir cuántos candidatos competentes fueron descartados.',der:'La discriminación algorítmica tiene consecuencias legales (igualdad de trato en el acceso al empleo y protección de datos personales): condiciona qué debe hacerse y con qué trazabilidad.'},
+ r:{seg:'Garantizar la protección de datos y la transparencia en el tratamiento de los perfiles descartados.',com:'Explicar la situación y la decisión a la dirección y a los candidatos afectados.',ci:'Dejar trazas de la auditoría para futuras revisiones de cumplimiento.'},
  q:'¿Es suficiente con corregir este proceso o hay que rediseñar la forma en que la organización evalúa el talento?'},
 {t:'La herramienta que deja gente afuera',extra:true,
  x:'El equipo adoptó una nueva app interna para reportar horas. Funciona bien, pero una persona con baja visión no puede usarla con su lector de pantalla. El equipo lleva dos semanas usando la app, pero esta persona sigue reportando sus horas en un Excel manual, lo que le genera retrasos y la hace sentir excluida. ¿Qué acción debería tomarse?',
- acc:{
-   a1:'Solicitar a TI y al proveedor una actualización urgente de accesibilidad, y asignar una alternativa temporal para la persona afectada.',
-   a2:'Pedir a la persona afectada que siga usando el Excel manual, ya que es una solución que funciona y no retrasa al equipo.',
-   a3:'Cambiar la herramienta por otra que sea accesible para todos, aunque eso implique un costo extra y un nuevo periodo de adaptación.'
- },
- c:{ada:'Ajustar la solución a las necesidades reales sin romper la operación.',ie:'Reconocer el impacto emocional de la exclusión y no dejar que la persona cargue sola con el problema.',cdig:'Documentar la falla y escalarla a TI con evidencia clara.'},
+ acc:[
+   {k:'a1',lvl:'best',x:'Solicitar a TI y al proveedor una actualización urgente de accesibilidad, y asignar una alternativa temporal para la persona afectada.',
+    fb:'Atiende el problema de fondo (la herramienta) y el inmediato (una alternativa temporal que no la perjudique). Exige coordinación entre TI, proveedor y equipo.'},
+   {k:'a2',lvl:'weak',x:'Pedir a la persona afectada que siga usando el Excel manual, ya que es una solución que funciona y no retrasa al equipo.',
+    fb:'Hace recaer todo el costo en la persona afectada y perpetúa la exclusión: lo que «funciona» para el equipo no funciona para ella. La adaptación es responsabilidad de la organización.'},
+   {k:'a3',lvl:'partial',x:'Cambiar la herramienta por otra que sea accesible para todos, aunque eso implique un costo extra y un nuevo periodo de adaptación.',
+    fb:'Resuelve la accesibilidad de forma definitiva, pero es costoso y desproporcionado como primera respuesta: tarda, obliga a todos a readaptarse y no alivia a la persona mientras tanto. Conviene evaluarlo si el proveedor no corrige la falla.'}
+ ],
+ c:{ada:'Ajustar la solución a las necesidades reales sin romper la operación.',ie:'Reconocer el impacto emocional de la exclusión y no dejar que la persona cargue sola con el problema.',cdig:'Documentar la falla y escalarla a TI con evidencia clara, por el canal correcto.'},
  r:{col:'Coordinar entre usuarios, TI y proveedor para encontrar la solución.',com:'Escuchar activamente a la persona afectada antes de decidir.',adt:'Evaluar la curva de aprendizaje si se cambia a una nueva herramienta.'},
  q:'¿Es justo que la adaptación recaiga solo en la persona afectada o es una responsabilidad de la organización?'}
 ];
 const BASE_COUNT = SC.filter(s=>!s.extra).length;
+const accOf = (k,key) => SC[k].acc ? SC[k].acc.find(a=>a.k===key) : null;
+const hits = k => st.picks[k].filter(id=>SC[k].c[id]).length;
 
 /* ================= Estado persistente ================= */
-const KEY='hc_state_v6';
+const KEY='hc_state_v7';
+const MAX_STATE_SIZE = 50 * 1024;
+
+function shuffle(a){
+  a = a.slice();
+  for(let i=a.length-1;i>0;i--){ const j=Math.floor(Math.random()*(i+1)); [a[i],a[j]]=[a[j],a[i]]; }
+  return a;
+}
 const fresh = () => ({
   i:0, view:'welcome',
-  picks: SC.map(()=>[]),
-  just:  SC.map(()=>''),
-  accPick: SC.map(()=>null),
-  done:  SC.map(()=>false),
-  student: ''
+  picks:  SC.map(()=>[]),
+  just:   SC.map(()=>''),
+  accPick:SC.map(()=>null),
+  accOrd: SC.map(s=>s.acc ? shuffle(s.acc.map(a=>a.k)) : null),
+  done:   SC.map(()=>false),
+  student:''
 });
-
-// [SEGURIDAD] Prevenir DoS por JSON gigante
-const MAX_STATE_SIZE = 50 * 1024; // 50 KB máximo
 
 function load(){
   try{
     const raw=localStorage.getItem(KEY);
-    if(!raw) return fresh();
-    
-    // [SEGURIDAD] Límite de tamaño
-    if(raw.length > MAX_STATE_SIZE) {
-      console.warn("Estado local excede el tamaño permitido. Reiniciando.");
-      return fresh();
-    }
-
+    if(!raw || raw.length > MAX_STATE_SIZE) return fresh();
     const p=JSON.parse(raw), base=fresh();
     if(!p||typeof p!=='object') return base;
-    
-    // [SEGURIDAD] Descartar llaves de contaminación de prototipos
-    ['__proto__', 'constructor', 'prototype'].forEach(k => { if(k in p) delete p[k]; });
-
+    // Se reconstruye todo desde una lista blanca: nada del JSON guardado se usa tal cual.
     base.i = Number.isInteger(p.i)&&p.i>=0&&p.i<SC.length ? p.i : 0;
     base.view = ['welcome','play','res','final'].includes(p.view) ? p.view : 'welcome';
     if(Array.isArray(p.picks)) base.picks = base.picks.map((_,k)=>Array.isArray(p.picks[k])?p.picks[k].filter(id=>SKILLS[id]).slice(0,3):[]);
-    if(Array.isArray(p.just))  base.just  = base.just.map((_,k)=>typeof p.just[k]==='string'?p.just[k]:'');
-    if(Array.isArray(p.accPick)) base.accPick = base.accPick.map((_,k)=>typeof p.accPick[k]==='string'?p.accPick[k]:null);
-    if(Array.isArray(p.done))  base.done  = base.done.map((_,k)=>!!p.done[k]);
-    base.student = typeof p.student==='string' ? p.student.slice(0, 60) : '';
-    
-    // [SEGURIDAD] Verificar que los accPick correspondan a las llaves válidas
-    base.accPick = base.accPick.map((val, k) => {
-      if (val && SC[k] && SC[k].acc && !SC[k].acc[val]) return null;
-      return val;
+    if(Array.isArray(p.just))  base.just  = base.just.map((_,k)=>typeof p.just[k]==='string'?p.just[k].slice(0,600):'');
+    if(Array.isArray(p.accPick)) base.accPick = base.accPick.map((_,k)=>{
+      const v=p.accPick[k]; return (typeof v==='string' && accOf(k,v)) ? v : null;
     });
-
+    if(Array.isArray(p.accOrd)) base.accOrd = base.accOrd.map((def,k)=>{
+      const v=p.accOrd[k];
+      return (def && Array.isArray(v) && v.length===def.length && def.every(x=>v.includes(x))) ? v.slice() : def;
+    });
+    if(Array.isArray(p.done)) base.done = base.done.map((_,k)=>!!p.done[k]);
+    base.student = typeof p.student==='string' ? p.student.slice(0, 60) : '';
+    // Coherencia: no se puede estar "analizada" sin 3 habilidades (ni sin decisión en los extras)
+    base.done = base.done.map((d,k)=> d && base.picks[k].length===3 && (!SC[k].extra || base.accPick[k]));
     return base;
   }catch(_){ return fresh(); }
 }
 const st = load();
 const save = () => { try{ localStorage.setItem(KEY, JSON.stringify(st)); }catch(_){} };
+let exported = false;   // ¿ya descargó algo en esta sesión?
+const hasProgress = () => st.view!=='welcome' || st.picks.some(p=>p.length) || st.just.some(j=>j);
 
 /* ================= Helpers UI ================= */
 const $ = document.getElementById('app');
 const esc = s => String(s).replace(/[&<>"']/g, c => ({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]));
 
-const stepper = () => '<div class="stepper" aria-hidden="true">' +
-  SC.map((_,k)=>`<span class="${st.view==='final'||k<st.i?'on':k===st.i?'cur':''}"></span>`).join('') + '</div>';
+// Muestra una vista. top:true → sube y enfoca el título; focus → devuelve el foco a un control tras re-renderizar.
+function show(html, o){
+  o = o || {};
+  const y = window.scrollY;
+  $.innerHTML = html;
+  if(o.top){
+    window.scrollTo(0,0);
+    const h = $.querySelector('h2');
+    if(h){ h.setAttribute('tabindex','-1'); h.focus({preventScroll:true}); }
+  } else {
+    window.scrollTo(0,y);
+    if(o.focus){ const el=$.querySelector(o.focus); if(el) el.focus({preventScroll:true}); }
+  }
+}
+
+function stepper(){
+  const exOn = st.i>=BASE_COUNT || st.done.slice(BASE_COUNT).some(Boolean);
+  const n = exOn ? SC.length : BASE_COUNT;
+  return '<div class="stepper" aria-hidden="true">' + SC.slice(0,n).map((_,k)=>{
+    const cls = st.done[k] ? 'on' : (k===st.i && st.view!=='final' ? 'cur' : '');
+    return `<span class="${cls}${k===BASE_COUNT?' gap':''}"></span>`;
+  }).join('') + '</div>';
+}
 
 function row(id, tag, cls, why){
   const S = SKILLS[id];
   return `<div class="row"><b>${esc(S.name)}</b> <span class="fam f${S.fam}" style="font-size:.75rem">(${FAM[S.fam]})</span><span class="tag ${cls}">${tag}</span><p>${esc(why)}</p></div>`;
 }
 
-function puntosCiegos(){
-  const acc={s:0,t:0,d:0};
-  st.picks.forEach((p,k)=>{
-    Object.keys(SC[k].c).forEach(id=>{
-      if(!p.includes(id)) acc[SKILLS[id].fam]++;
-    });
-  });
-  return acc;
-}
-
 function download(text, filename, mime){
+  exported = true;
   const blob = new Blob([text], {type: mime+';charset=utf-8'});
   const url = URL.createObjectURL(blob);
   const a = document.createElement('a');
@@ -234,146 +289,186 @@ function download(text, filename, mime){
   setTimeout(()=>URL.revokeObjectURL(url), 1500);
 }
 
+/* Reinicio con confirmación en pantalla (confirm() puede estar bloqueado en LMS/iframes y el botón parecería «muerto») */
+function wireReset(msg){
+  const btn=document.getElementById('rst'), box=document.getElementById('rstBox');
+  if(!btn||!box) return;
+  btn.onclick = ()=>{
+    const warnExport = st.done.some(Boolean) && !exported
+      ? ' Aún no has descargado tus resultados: exporta el resumen o los datos antes de borrar.' : '';
+    box.innerHTML = `<div class="alert bad" role="alertdialog" aria-labelledby="rstT" aria-describedby="rstD">
+      <b id="rstT">¿Empezar de nuevo?</b>
+      <span id="rstD"> ${esc(msg)}${warnExport} Esta acción no se puede deshacer.</span>
+      <div class="bar"><button type="button" class="sec" id="rstNo">Cancelar</button><button type="button" class="danger" id="rstYes">Sí, borrar y empezar de nuevo</button></div>
+    </div>`;
+    const no=document.getElementById('rstNo');
+    no.focus();
+    no.onclick = ()=>{ box.innerHTML=''; btn.focus(); };
+    document.getElementById('rstYes').onclick = ()=>{
+      Object.assign(st, fresh()); exported=false; save(); welcome(false);
+    };
+  };
+}
+const RST_FOOT = '<div style="text-align:center"><button type="button" class="linkbtn" id="rst">Empezar de nuevo</button></div><div id="rstBox"></div>';
+
+/* Gráfico de bienvenida: tres hexágonos + centro */
+const hex = (cx,cy,R) => {
+  const w=R*0.866;
+  return [[cx,cy-R],[cx+w,cy-R/2],[cx+w,cy+R/2],[cx,cy+R],[cx-w,cy+R/2],[cx-w,cy-R/2]].map(p=>p.map(v=>v.toFixed(1)).join(',')).join(' ');
+};
+const HEX_SVG = `<svg viewBox="0 0 720 610" role="img" aria-labelledby="hexT hexD" xmlns="http://www.w3.org/2000/svg">
+  <title id="hexT">Tres familias de habilidades</title>
+  <desc id="hexD">Tres hexágonos unidos: Sociales arriba, Técnicas abajo a la izquierda y Digitales abajo a la derecha. En el centro, un hexágono blanco con la palabra Habilidades.</desc>
+  <g stroke="#222" stroke-width="9" stroke-linejoin="miter">
+    <polygon points="${hex(360,185,165)}" fill="#3ddad7"/>
+    <polygon points="${hex(218,425,160)}" fill="#35c8ee"/>
+    <polygon points="${hex(502,425,160)}" fill="#2b8fd6"/>
+    <polygon points="${hex(360,318,106)}" fill="#fff" stroke-width="6"/>
+  </g>
+  <g font-family="system-ui,-apple-system,'Segoe UI',Roboto,Arial,sans-serif" text-anchor="middle" fill="#1f2937">
+    <text x="360" y="153" font-size="29" font-weight="700">SOCIALES</text>
+    <text x="205" y="446" font-size="29" font-weight="700">TÉCNICAS</text>
+    <text x="508" y="446" font-size="29" font-weight="700">DIGITALES</text>
+    <text x="360" y="324" font-size="19" letter-spacing="1.5">HABILIDADES</text>
+  </g>
+</svg>`;
+
 /* ================= Ruteo ================= */
 function route(){
-  if(st.view==='welcome') welcome();
+  if(st.view==='welcome') welcome(false);
   else if(st.view==='final') fin();
   else if(st.view==='res' && st.done[st.i]) res();
   else { st.view='play'; play(); }
 }
 
 /* ================= Vista: Bienvenida ================= */
-function welcome(){
-  let h = `<div class="card" style="text-align:center;">
+function welcome(resume){
+  const lst = f => byFam(f).map(id=>SKILLS[id].name).join(' · ');
+  let h = `<div class="card hero">
     <h2>Bienvenido/a a Habilidad crítica en acción</h2>
-    
-    <div class="welcome-graphic">
-      <div class="hex-row">
-        <div class="hex-wrapper"><div class="hex s hex-shadow">SOCIALES</div></div>
-      </div>
-      <div class="hex-row" style="margin-top: -20px;">
-        <div class="hex-wrapper"><div class="hex t hex-shadow">TÉCNICAS</div></div>
-        <div class="hex-wrapper" style="margin: 0 -10px; z-index: 2;"><div class="hex center">HABILIDADES</div></div>
-        <div class="hex-wrapper"><div class="hex d hex-shadow">DIGITALES</div></div>
-      </div>
+    ${HEX_SVG}
+    <p class="lead"><b>El objetivo no es elegir la habilidad «más importante», sino encontrar la mejor combinación de habilidades (sociales, técnicas y digitales) para enfrentar cada situación con éxito.</b></p>
+    <div class="legend">
+      <div class="ls"><h4 class="fs">Sociales</h4><p>${esc(lst('s'))}</p></div>
+      <div class="lt"><h4 class="ft">Técnicas</h4><p>${esc(lst('t'))}</p></div>
+      <div class="ld"><h4 class="fd">Digitales</h4><p>${esc(lst('d'))}</p></div>
     </div>
+    <h3 style="text-align:left">Cómo funciona</h3>
+    <ol class="steps">
+      <li>Leerás ${BASE_COUNT} situaciones de la vida organizacional.</li>
+      <li>En cada una elegirás <b>exactamente 3 habilidades</b> y, si quieres, explicarás por qué.</li>
+      <li>Verás un análisis de tu combinación y qué habilidades eran indispensables.</li>
+      <li>Al final obtendrás tu perfil y podrás aceptar, si lo deseas, ${SC.length-BASE_COUNT} desafíos extra donde también decides qué acción tomar.</li>
+    </ol>
+    <p class="hint" style="text-align:left">Tu avance se guarda solo en este navegador. Duración aproximada: 20 a 30 minutos.</p>`;
+  if(resume){
+    h += `<div class="alert info" style="text-align:left;margin-top:18px"><b>Hay un recorrido guardado en este equipo.</b> Si compartes el computador con otra persona, empieza de nuevo para no mezclar resultados.</div>
+    <div class="bar" style="justify-content:center">
+      <button class="main" id="cont">Continuar donde quedé</button>
+      <button class="sec" id="rst">Empezar de nuevo</button>
+    </div><div id="rstBox"></div>`;
+  } else {
+    h += `<div class="bar" style="justify-content:center;margin-top:24px"><button class="main" id="start">Comenzar el recorrido</button></div>`;
+  }
+  h += '</div>';
+  show(h, {top:true});
 
-    <p style="font-size:1.05rem; margin-top:20px; text-align:left; background:var(--sb); padding:14px; border-radius:8px; line-height: 1.6;">
-      <b>El objetivo fundamental de esta actividad no es elegir la habilidad "más importante", sino encontrar la mejor combinación de habilidades (sociales, técnicas y digitales) para enfrentar cada situación con éxito.</b>
-    </p>
-    <p class="hint" style="text-align:left; margin-top:16px; font-size: .95rem;">
-      A continuación, verás 5 situaciones base de la vida organizacional. En cada una, deberás elegir exactamente 3 habilidades y justificar por qué esa combinación es la más adecuada. 
-      Al final, podrás ver tu perfil y, si lo deseas, aceptar un desafío extra de 2 situaciones avanzadas con un formato diferente (decisión + habilidades).
-    </p>
-
-    <div class="bar" style="justify-content:center; margin-top:24px;">
-      <button class="main" id="start">Comenzar el recorrido</button>
-    </div>
-  </div>`;
-  $.innerHTML = h;
-  document.getElementById('start').onclick = () => {
-    st.i = 0; st.view = 'play'; save(); play();
-  };
+  const start = document.getElementById('start');
+  if(start) start.onclick = () => { st.i=0; st.view='play'; save(); play(); };
+  const cont = document.getElementById('cont');
+  if(cont) cont.onclick = () => route();
+  if(resume) wireReset('Se borrará el recorrido guardado en este equipo.');
 }
 
 /* ================= Vista: jugar ================= */
-function play(){
+function play(o){
+  o = o || {top:true};
   const s = SC[st.i], p = st.picks[st.i], isExtra = !!s.extra;
   const label = isExtra ? `Desafío extra ${st.i - BASE_COUNT + 1} de ${SC.length - BASE_COUNT}` : `Situación ${st.i+1} de ${BASE_COUNT}`;
-  
+  const noAcc = isExtra && !st.accPick[st.i];
+
   let h = stepper() + `<div class="card"><h2>${label}: ${esc(s.t)}</h2>
     <div class="sit">${esc(s.x)}</div>`;
 
   if (isExtra) {
-    h += `<div class="alert" style="background:#e3f5ea; border-color:#86efac; margin-bottom:20px;">
-      <b>Instrucciones para este desafío:</b> Primero, selecciona la acción que consideres más adecuada. Luego, elige las 3 habilidades que mejor respalden esa decisión.
-    </div>
+    h += `<div class="alert ok"><b>Instrucciones para este desafío:</b> primero selecciona la acción que consideres más adecuada. Luego elige las 3 habilidades que mejor respalden esa decisión.</div>
     <h3>1. ¿Qué acción es la más adecuada para resolver el problema?</h3>
-    <div style="margin: 10px 0;">
-      ${Object.entries(s.acc).map(([key, text]) => `
-        <div class="action-card ${st.accPick[st.i]===key?'selected':''}" data-acc="${key}">
-          <p>${esc(text)}</p>
-        </div>
-      `).join('')}
-    </div>
+    <div>` + st.accOrd[st.i].map((key,n) => {
+      const a = accOf(st.i,key);
+      return `<button type="button" class="action-card" data-acc="${key}" aria-pressed="${st.accPick[st.i]===key}"><b>${'ABC'[n]}.</b>${esc(a.x)}</button>`;
+    }).join('') + `</div>
     <h3>2. ¿Qué combinación de habilidades respalda tu decisión?</h3>
-    <p class="hint">Elige exactamente 3. Piensa en cómo se potencian entre sí.</p>`;
+    <p class="hint">Elige exactamente 3. Si eliges una cuarta, reemplaza a la más antigua.</p>`;
   } else {
     h += `<h3>¿Qué combinación de habilidades se requiere para enfrentar esta situación con éxito?</h3>
-          <p class="hint">Elige exactamente 3. Piensa en cómo se potencian entre sí para lograr el resultado esperado.</p>`;
+          <p class="hint">Elige exactamente 3 y piensa en cómo se potencian entre sí. Si eliges una cuarta, reemplaza a la más antigua.</p>`;
   }
 
   for(const f of ['s','t','d']){
     h += `<div class="fam f${f}">${FAM[f]}</div><div class="chips">` +
-      byFam(f).map(id=>{
-        const on = p.includes(id);
-        const dis = !on && p.length>=3;
-        return `<button type="button" class="chip ${f}" data-id="${id}" aria-pressed="${on}" ${dis?'disabled':''}>${esc(SKILLS[id].name)}</button>`;
-      }).join('') + '</div>';
+      byFam(f).map(id=>`<button type="button" class="chip ${f}" data-id="${id}" aria-pressed="${p.includes(id)}">${esc(SKILLS[id].name)}</button>`).join('') + '</div>';
   }
 
-  const isReady = p.length===3 && (!isExtra || st.accPick[st.i]);
+  const isReady = p.length===3 && !noAcc;
+  const canPrev = st.i>0 && st.i<BASE_COUNT;
 
   h += `<h3>Justifica brevemente tu elección <span style="font-weight:400;color:var(--mu);font-size:.85rem">(opcional, recomendado)</span></h3>
-    <textarea id="just" maxlength="600" placeholder="${isExtra ? '¿Por qué elegiste esa acción y esas habilidades?' : '¿Por qué estas tres? ¿Cómo se complementan?'}">${esc(st.just[st.i])}</textarea>
+    <textarea id="just" maxlength="600" aria-label="Justificación" placeholder="${isExtra ? '¿Por qué elegiste esa acción y esas habilidades?' : '¿Por qué estas tres? ¿Cómo se complementan?'}">${esc(st.just[st.i])}</textarea>
     <div class="bar">
-      <span style="color: ${isExtra && !st.accPick[st.i] ? 'var(--rd)' : 'inherit'}; font-weight: ${isExtra && !st.accPick[st.i] ? '600' : 'normal'};">
-        ${isExtra && !st.accPick[st.i] ? '⚠ Falta seleccionar una acción' : p.length + ' de 3 habilidades elegidas'}
-      </span>
-      ${isExtra ? '<button class="sec" id="skipExtra">Omitir desafío extra</button>' : ''}
+      <span><span aria-live="polite">${p.length} de 3 habilidades elegidas</span>${noAcc ? ' · <span class="warn" role="status">Falta seleccionar una acción</span>' : ''}</span>
+      ${canPrev ? '<button class="sec" id="prev">← Situación anterior</button>' : ''}
+      ${isExtra ? '<button class="sec" id="skipExtra">Omitir los desafíos extra</button>' : ''}
       <button class="main" id="go" ${isReady?'':'disabled'}>Ver análisis</button>
-    </div></div>`;
-  
-  $.innerHTML = h;
+    </div></div>` + RST_FOOT;
 
-  if (isExtra) {
-    $.querySelectorAll('.action-card').forEach(card => {
-      card.onclick = () => {
-        st.accPick[st.i] = card.dataset.acc;
-        save(); play();
-      };
-    });
-  }
+  show(h, o);
 
+  $.querySelectorAll('.action-card').forEach(card=>{
+    card.onclick = () => { st.accPick[st.i]=card.dataset.acc; save(); play({focus:`.action-card[data-acc="${card.dataset.acc}"]`}); };
+  });
   $.querySelectorAll('.chip').forEach(b=>{
     b.onclick = () => {
       const id=b.dataset.id, a=st.picks[st.i], k=a.indexOf(id);
-      if(k>=0) a.splice(k,1); else if(a.length<3) a.push(id);
-      save(); play();
+      if(k>=0) a.splice(k,1);
+      else { if(a.length>=3) a.shift(); a.push(id); }
+      st.done[st.i]=false;
+      save(); play({focus:`.chip[data-id="${id}"]`});
     };
   });
   const ta=document.getElementById('just');
   ta.addEventListener('input', ()=>{ st.just[st.i]=ta.value; save(); });
-  const go=document.getElementById('go');
-  go.onclick = ()=>{ st.done[st.i]=true; st.view='res'; save(); res(); };
+  wireReset('Se borrarán tus elecciones y justificaciones de todas las situaciones.');
+  document.getElementById('go').onclick = ()=>{ st.done[st.i]=true; st.view='res'; save(); res(); };
+  const prev=document.getElementById('prev');
+  if(prev) prev.onclick = ()=>{ st.i--; st.view = st.done[st.i] ? 'res' : 'play'; save(); route(); };
   const skip=document.getElementById('skipExtra');
-  if(skip) skip.onclick = ()=>{ st.view='final'; save(); fin(); };
+  if(skip) skip.onclick = ()=>{
+    if(!confirm('Pasarás a ver tu perfil sin completar los desafíos extra que falten. Podrás retomarlos desde el perfil. ¿Continuar?')) return;
+    st.view='final'; save(); fin();
+  };
 }
 
 /* ================= Vista: análisis ================= */
 function res(){
   const s=SC[st.i], p=st.picks[st.i], isExtra = !!s.extra;
   let h = stepper() + `<div class="card"><h2>Análisis: ${esc(s.t)}</h2>`;
-  
+
   if(st.just[st.i].trim()){
     h += `<div class="refl" style="margin-top:0"><b>Tu justificación:</b> ${esc(st.just[st.i].trim())}</div>`;
   }
 
   if (isExtra) {
-    // [SEGURIDAD] Validar que la acción elegida exista realmente antes de imprimirla
-    const chosenAcc = st.accPick[st.i];
-    const accText = (chosenAcc && s.acc[chosenAcc]) ? s.acc[chosenAcc] : 'Acción no registrada';
-
+    const chosen = accOf(st.i, st.accPick[st.i]);
     h += `<h3>Tu decisión</h3>
-          <div class="refl" style="background:#fff; border:1px solid var(--b); margin-bottom:14px;">
-            Has elegido: <b>${esc(accText)}</b>
-          </div>`;
-    
-    if (chosenAcc === 'a1' || chosenAcc === 'a3') {
-       h += `<div class="alert" style="background:#e3f5ea; border-color:#86efac;"><b>Buena decisión:</b> Priorizar la auditoría o la accesibilidad demuestra pensamiento crítico y responsabilidad ética, evitando normalizar el sesgo o la exclusión.</div>`;
-    } else {
-       h += `<div class="alert" style="background:#fef2f2; border-color:#fca5a5; color:#b91c1c;"><b>Revisión:</b> Aunque la acción mitiga el problema, puede seguir dejando en desventaja a los afectados. ¿Es sostenible a largo plazo?</div>`;
+      <div class="refl" style="background:#fff;border:1px solid var(--b);margin-top:0">Has elegido: <b>${esc(chosen ? chosen.x : 'Acción no registrada')}</b></div>`;
+    if(chosen){
+      const cls = chosen.lvl==='best' ? 'ok' : chosen.lvl==='weak' ? 'bad' : '';
+      h += `<div class="alert ${cls}"><b>${LV[chosen.lvl]}.</b> ${esc(chosen.fb)}</div>`;
     }
+    h += '<h3>Comparación de las opciones</h3>' + s.acc.map(a=>{
+      const mine = a.k===st.accPick[st.i];
+      return `<div class="row"><b>${esc(a.x)}</b><span class="tag lv-${a.lvl}">${LV[a.lvl]}</span>${mine?'<span class="tag q">Tu elección</span>':''}<p>${esc(a.fb)}</p></div>`;
+    }).join('');
     h += '<h3>Habilidades que respaldan tu decisión</h3>';
   } else {
     h += '<h3>Tus elecciones</h3>';
@@ -385,143 +480,206 @@ function res(){
     else h += row(id,'Discutible','q','No figura entre las más críticas aquí, pero podrías defenderla: ¿qué detalle de la situación la volvería indispensable?');
   });
 
-  const inds = Object.keys(s.c);
-  if(inds.length > 1){
-    const nombres = inds.map(id=>`<b>${esc(SKILLS[id].name)}</b> <span class="fam f${SKILLS[id].fam}" style="font-size:.78rem">(${FAM[SKILLS[id].fam]})</span>`).join(' + ');
-    h += `<div class="combo">
-      <b>¿Qué combinación se requiere para enfrentar la situación con éxito?</b><br>
-      Se requiere articular: ${nombres}.
-      <br><small>¿Cómo se potencian entre sí? ¿Qué pasaría si falta una de ellas?</small>
-    </div>`;
-  }
+  h += `<div class="match"><b>Coincidencia: ${hits(st.i)} de 3</b> con las habilidades indispensables de esta situación.</div>`;
 
-  const miss = Object.keys(s.c).filter(id=>!p.includes(id));
+  const inds = Object.keys(s.c);
+  const nombres = inds.map(id=>`<b>${esc(SKILLS[id].name)}</b> <span class="fam f${SKILLS[id].fam}" style="font-size:.78rem">(${FAM[SKILLS[id].fam]})</span>`).join(' + ');
+  h += `<div class="combo">
+    <b>¿Qué combinación se requiere para enfrentar la situación con éxito?</b><br>
+    Se requiere articular: ${nombres}.
+    <br><small>¿Cómo se potencian entre sí? ¿Qué pasaría si falta una de ellas?</small>
+  </div>`;
+
+  const miss = inds.filter(id=>!p.includes(id));
   if(miss.length) h += '<h3>Indispensables que no elegiste</h3>' + miss.map(id=>row(id,'Punto ciego','m',s.c[id])).join('');
-  
-  const need = Object.keys(s.c).filter(id=>SKILLS[id].fam!=='s');
+
+  const need = inds.filter(id=>SKILLS[id].fam!=='s');
   if(need.length && !need.some(id=>p.includes(id))){
     h += s.emo
       ? '<div class="alert"><b>Ojo con la carga emocional:</b> cuando una situación es tensa, la atención se va hacia lo social. Aquí también era indispensable una habilidad técnica o digital. ¿Cuál era y qué habría pasado sin ella?</div>'
       : '<div class="alert"><b>Ojo:</b> en esta situación era indispensable alguna habilidad técnica o digital. ¿Cuál y por qué?</div>';
   }
 
+  const last = st.i===BASE_COUNT-1 || st.i===SC.length-1;
   h += `<div class="refl"><b>Para reflexionar:</b> ${esc(s.q)}<br><small>Este análisis es una lectura posible, no la única respuesta correcta: discútela con tu grupo.</small></div>
     <div class="bar">
       <button class="sec" id="back">Cambiar mi elección</button>
-      <button class="main" id="next">${st.i<SC.length-1?'Siguiente':'Ver mi perfil'}</button>
-    </div></div>`;
-  $.innerHTML = h;
-  
-  document.getElementById('back').onclick = ()=>{ st.view='play'; save(); play(); };
+      <button class="main" id="next">${last?'Ver mi perfil':'Siguiente'}</button>
+    </div></div>` + RST_FOOT;
+  show(h, {top:true});
+
+  wireReset('Se borrarán tus elecciones y justificaciones de todas las situaciones.');
+  document.getElementById('back').onclick = ()=>{ st.done[st.i]=false; st.view='play'; save(); play(); };
   document.getElementById('next').onclick = ()=>{
-    if(st.i<SC.length-1){ st.i++; st.view='play'; save(); play(); }
-    else { st.view='final'; save(); fin(); }
+    if(last){ st.view='final'; save(); fin(); }
+    else { st.i++; st.view='play'; save(); route(); }
   };
 }
 
 /* ================= Vista: perfil final ================= */
 function fin(){
-  const c={s:0,t:0,d:0};
-  st.picks.forEach(a=>a.forEach(id=>c[SKILLS[id].fam]++));
-  const tot=c.s+c.t+c.d||1;
-  const col={s:'var(--s)',t:'var(--t)',d:'var(--d)'};
-  const pc = puntosCiegos(), pcTot = pc.s+pc.t+pc.d;
-  const baseDone = st.picks.slice(0,BASE_COUNT).every(a=>a.length===3);
-  const extraDone = st.picks.slice(BASE_COUNT).some(a=>a.length===3);
+  const D = SC.map((_,k)=>k).filter(k=>st.done[k]);
+  const c={s:0,t:0,d:0}, ex={s:0,t:0,d:0}, hit={s:0,t:0,d:0};
+  D.forEach(k=>{
+    st.picks[k].forEach(id=>c[SKILLS[id].fam]++);
+    Object.keys(SC[k].c).forEach(id=>{ const f=SKILLS[id].fam; ex[f]++; if(st.picks[k].includes(id)) hit[f]++; });
+  });
+  const tot=(c.s+c.t+c.d)||1, exT=(ex.s+ex.t+ex.d)||1, hitT=hit.s+hit.t+hit.d;
+  const pct = (a,b)=>Math.round(a/b*100);
+  const colr={s:'var(--sg)',t:'var(--tg)',d:'var(--dg)'};
+  const baseDone = st.done.slice(0,BASE_COUNT).every(Boolean);
+  const pend = SC.findIndex((s,k)=>s.extra && !st.done[k]);
+  const anyExtra = st.done.slice(BASE_COUNT).some(Boolean);
 
-  let h = stepper() + `<div class="card"><h2>Tu perfil de elecciones</h2>
-    <p>Así se repartieron tus ${tot} elecciones entre las tres familias:</p>`;
+  let h = stepper() + `<div class="card"><h2>Tu perfil de elecciones</h2>`;
+  if(!D.length){
+    h += `<p>Aún no has analizado ninguna situación.</p><div class="bar"><button class="main" id="resume">Volver a las situaciones</button></div></div>`;
+    show(h,{top:true});
+    document.getElementById('resume').onclick=()=>{ st.view='play'; save(); play(); };
+    return;
+  }
+
+  h += `<p>Así se repartieron tus ${D.length*3} elecciones (en ${D.length} situaciones analizadas) entre las tres familias:</p>`;
   for(const f of ['s','t','d']){
-    h += `<div class="meter"><b>${FAM[f]}</b><div class="mt"><div style="width:${Math.round(c[f]/tot*100)}%;background:${col[f]}"></div></div><span>${Math.round(c[f]/tot*100)} %</span></div>`;
+    h += `<div class="meter"><b>${FAM[f]}</b><div class="mt"><div style="width:${pct(c[f],tot)}%;background:${colr[f]}"></div></div><span>${pct(c[f],tot)} %</span></div>`;
   }
-  if(pcTot>0){
-    h += `<h3>Puntos ciegos acumulados</h3>
-      <p class="hint">Habilidades que el análisis marcó como indispensables en alguna situación y no elegiste (${pcTot} en total).</p>`;
-    for(const f of ['s','t','d']){
-      h += `<div class="meter"><b>${FAM[f]}</b><div class="mt"><div style="width:${Math.round(pc[f]/pcTot*100)}%;background:${col[f]}"></div></div><span>${pc[f]}</span></div>`;
-    }
+  h += `<p class="hint">Combinación indispensable en esas situaciones: sociales ${pct(ex.s,exT)} %, técnicas ${pct(ex.t,exT)} %, digitales ${pct(ex.d,exT)} %.</p>`;
+
+  h += `<h3>Indispensables que acertaste</h3>
+    <p class="hint">Acertaste ${hitT} de ${exT} (${pct(hitT,exT)} %). Por familia:</p>`;
+  for(const f of ['s','t','d']){
+    h += ex[f]
+      ? `<div class="meter"><b>${FAM[f]}</b><div class="mt"><div style="width:${pct(hit[f],ex[f])}%;background:${colr[f]}"></div></div><span>${hit[f]} de ${ex[f]}</span></div>`
+      : `<div class="meter"><b>${FAM[f]}</b><div class="mt"></div><span>—</span></div>`;
   }
+
+  // Lectura: se compara contra lo esperado (la clave de respuestas), no contra un umbral fijo.
+  const dS = c.s/tot - ex.s/exT, dTD = (c.t+c.d)/tot - (ex.t+ex.d)/exT;
+  const blindTD = (ex.t-hit.t)+(ex.d-hit.d), blindS = ex.s-hit.s;
   let lectura;
-  if(c.s/tot>=0.7 && (pc.t+pc.d)>0){
-    lectura = '<div class="alert"><b>Tendencia:</b> elegiste lo social casi por defecto, y quedaron puntos ciegos técnicos/digitales. Revisa cada situación: ¿qué conocimiento te faltó considerar?</div>';
-  } else if(c.s/tot>=0.7){
-    lectura = '<div class="alert"><b>Tendencia:</b> elegiste lo social casi por defecto. Pregúntate si en algún caso una habilidad técnica o digital marcaba la diferencia.</div>';
-  } else if((c.t+c.d)/tot>=0.7 && pc.s>0){
-    lectura = '<div class="alert"><b>Tendencia:</b> te inclinaste por lo técnico/digital, y quedaron puntos ciegos sociales. ¿Qué se pierde cuando no se comunica ni se sostiene con las personas?</div>';
+  if(dS>0.15){
+    lectura = blindTD>0
+      ? '<div class="alert"><b>Tendencia:</b> elegiste lo social más de lo que pedían las situaciones, y quedaron puntos ciegos técnicos o digitales. Revisa cada caso: ¿qué conocimiento te faltó considerar?</div>'
+      : '<div class="alert"><b>Tendencia:</b> elegiste lo social más de lo que pedían las situaciones. Pregúntate si en algún caso una habilidad técnica o digital marcaba la diferencia.</div>';
+  } else if(dTD>0.15){
+    lectura = blindS>0
+      ? '<div class="alert"><b>Tendencia:</b> te inclinaste por lo técnico o digital más de lo que pedían las situaciones, y quedaron puntos ciegos sociales. ¿Qué se pierde cuando no se comunica ni se sostiene con las personas?</div>'
+      : '<div class="alert"><b>Tendencia:</b> te inclinaste por lo técnico o digital más de lo que pedían las situaciones. Pregúntate qué habilidad social acompañaba esas decisiones.</div>';
   } else {
-    lectura = '<div class="alert"><b>Lectura:</b> combinaste distintas familias. Pregúntate en qué situaciones fue la combinación lo que marcó la diferencia.</div>';
+    lectura = `<div class="alert ok"><b>Lectura:</b> tu reparto entre familias se acerca al que pedían las situaciones. ${hitT<exT ? 'Revisa en la tabla en qué casos cambió la combinación exacta y por qué.' : 'Acertaste todas las combinaciones indispensables.'}</div>`;
   }
   h += lectura;
 
-  h += `<h3>Identificación (opcional)</h3>
-    <p class="hint">Si quieres que tu docente pueda tabular tu resultado, escribe tu nombre o código.</p>
-    <input type="text" id="studentName" maxlength="60" placeholder="Nombre o código" value="${esc(st.student)}">`;
+  h += `<h3>Tu elección frente a la combinación indispensable</h3><div class="tbl"><table>
+    <caption>Un ✓ marca las indispensables que elegiste.</caption>
+    <thead><tr><th>Situación</th><th>Tu combinación</th><th>Combinación indispensable</th><th>Coincidencia</th></tr></thead><tbody>` +
+    D.map(k=>{
+      const s=SC[k], a = s.extra ? accOf(k,st.accPick[k]) : null;
+      return `<tr><td>${esc(s.t)}${s.extra?' <small>(extra)</small>':''}</td>
+        <td>${st.picks[k].map(i=>esc(SKILLS[i].name)).join('<br>')}${a?`<br><small><b>Decisión:</b> ${LV[a.lvl]}</small>`:''}</td>
+        <td>${Object.keys(s.c).map(i=>(st.picks[k].includes(i)?'✓ ':'')+esc(SKILLS[i].name)).join('<br>')}</td>
+        <td>${hits(k)} de 3</td></tr>`;
+    }).join('') + `</tbody></table></div>`;
 
-  if(baseDone && !extraDone){
+  h += `<h3>Identificación (opcional)</h3>
+    <p class="hint">Si quieres que tu docente pueda tabular tu resultado, escribe tu nombre o código. Se guarda solo en este navegador y llega a tu docente únicamente si le entregas el archivo que exportes.</p>
+    <input type="text" id="studentName" maxlength="60" aria-label="Nombre o código" placeholder="Nombre o código" value="${esc(st.student)}">`;
+
+  if(baseDone && pend>=0){
     h += `<div class="bar" style="justify-content:center;margin-top:20px">
-      <button class="sec" id="goExtra">Aceptar el desafío extra (2 situaciones avanzadas)</button>
+      <button class="sec" id="goExtra">${anyExtra?'Continuar con el desafío extra pendiente':`Aceptar el desafío extra (${SC.length-BASE_COUNT} situaciones avanzadas)`}</button>
     </div>`;
   }
 
   h += `<div class="refl"><b>Cierre:</b> en la vida organizacional las habilidades rara vez actúan solas. ¿Cuál de tus combinaciones defenderías con más fuerza ante tus compañeros? ¿Cuál cambiarías ahora?</div>
     <div class="bar">
       <button class="sec" id="expTxt">Resumen (.txt)</button>
+      <button class="sec" id="expCsv">Datos (.csv)</button>
       <button class="sec" id="expJson">Datos (.json)</button>
+      <button class="sec" id="prt">Imprimir / guardar PDF</button>
       <button class="danger" id="rst">Volver a empezar</button>
-    </div></div>`;
-  $.innerHTML = h;
+    </div><div id="rstBox"></div></div>`;
+  show(h,{top:true});
 
-  document.getElementById('studentName').addEventListener('input', e=>{
-    st.student = e.target.value.slice(0, 60); save();
-  });
-  document.getElementById('rst').onclick = ()=>{
-    if(!confirm('Se borrará tu progreso actual. ¿Continuar?')) return;
-    Object.assign(st, fresh()); save(); route();
-  };
+  document.getElementById('studentName').addEventListener('input', e=>{ st.student = e.target.value.slice(0,60); save(); });
+  wireReset('Se borrarán tus elecciones, justificaciones y el nombre o código ingresado.');
   const goExtra = document.getElementById('goExtra');
-  if(goExtra) goExtra.onclick = ()=>{ st.i = BASE_COUNT; st.view='play'; save(); play(); };
+  if(goExtra) goExtra.onclick = ()=>{ st.i = pend; st.view='play'; save(); play(); };
+  document.getElementById('prt').onclick = ()=>window.print();
+
+  /* ---- Exportaciones ---- */
+  const decKey = k => SC[k].extra ? st.accPick[k] : null;
+  const decLvl = k => { const a = SC[k].extra ? accOf(k,st.accPick[k]) : null; return a ? a.lvl : null; };
 
   document.getElementById('expTxt').onclick = ()=>{
-    let t='HABILIDAD CRÍTICA EN ACCIÓN — Resumen\n';
+    let t='HABILIDAD CRÍTICA EN ACCIÓN — Resumen ('+VERSION+')\n';
     if(st.student.trim()) t+='Alumno: '+st.student.trim()+'\n';
-    t+='Fecha: '+new Date().toLocaleString()+'\n\n';
+    t+='Fecha: '+new Date().toLocaleString()+'\n';
+    t+=`Indispensables acertados: ${hitT} de ${exT}\n\n`;
     SC.forEach((s,k)=>{
-      t+=`${s.extra?'[Extra] ':'[Base] '}${k+1}. ${s.t}\n`;
-      if (s.extra && st.accPick[k] && s.acc[st.accPick[k]]) {
-        t+=`Decisión tomada: ${s.acc[st.accPick[k]]}\n`;
-      }
+      t+=`${s.extra?'[Extra] ':'[Base] '}${k+1}. ${s.t}${st.done[k]?'':' (no completada)'}\n`;
+      const a = s.extra ? accOf(k,st.accPick[k]) : null;
+      if(a) t+=`Decisión tomada: ${a.x} (${LV[a.lvl]})\n`;
       t+=`Habilidades elegidas: ${st.picks[k].map(i=>SKILLS[i].name).join('; ')||'—'}\n`;
       if(st.just[k].trim()) t+=`Justificación: ${st.just[k].trim()}\n`;
-      t+=`Combinación requerida: ${Object.keys(s.c).map(i=>SKILLS[i].name).join(' + ')}\n`;
+      t+=`Combinación indispensable: ${Object.keys(s.c).map(i=>SKILLS[i].name).join(' + ')}\n`;
+      if(st.done[k]) t+=`Coincidencia: ${hits(k)} de 3\n`;
       t+=`Reflexión: ${s.q}\n\n`;
     });
     download(t, 'habilidad_critica_resumen.txt', 'text/plain');
   };
+
+  const fname = ext => st.student.trim()
+    ? 'habilidad_critica_'+st.student.trim().replace(/[^a-z0-9_-]/gi,'_')+'.'+ext
+    : 'habilidad_critica_datos.'+ext;
+
   document.getElementById('expJson').onclick = ()=>{
     const data = {
+      version: VERSION,
       alumno: st.student.trim(),
       fecha: new Date().toISOString(),
       situaciones: SC.map((s,k)=>({
         titulo: s.t,
         extra: !!s.extra,
-        decision: s.extra && st.accPick[k] && s.acc[st.accPick[k]] ? s.acc[st.accPick[k]] : null,
+        completada: !!st.done[k],
+        decision_clave: decKey(k),
+        decision_nivel: decLvl(k),
         elecciones: st.picks[k],
         justificacion: st.just[k],
         indispensables: Object.keys(s.c),
-        combinacion: Object.keys(s.c)
+        coincidencia: st.done[k] ? hits(k) : null
       })),
-      perfil: { sociales:c.s, tecnicas:c.t, digitales:c.d },
-      puntosCiegos: pc
+      perfil: {
+        elegidas:{sociales:c.s, tecnicas:c.t, digitales:c.d},
+        esperadas:{sociales:ex.s, tecnicas:ex.t, digitales:ex.d},
+        acertadas:{sociales:hit.s, tecnicas:hit.t, digitales:hit.d}
+      },
+      puntosCiegos:{sociales:ex.s-hit.s, tecnicas:ex.t-hit.t, digitales:ex.d-hit.d}
     };
-    const fname = st.student.trim()
-      ? 'habilidad_critica_'+st.student.trim().replace(/[^a-z0-9_-]/gi,'_')+'.json'
-      : 'habilidad_critica_datos.json';
-    download(JSON.stringify(data,null,2), fname, 'application/json');
+    download(JSON.stringify(data,null,2), fname('json'), 'application/json');
+  };
+
+  // CSV: una fila por estudiante (el docente pega las filas de toda la clase bajo un mismo encabezado).
+  const cell = v => {
+    let x = String(v==null?'':v);
+    if(/^[=+\-@\t\r]/.test(x)) x = "'"+x;           // evita que Excel interprete fórmulas
+    return '"'+x.replace(/"/g,'""')+'"';
+  };
+  document.getElementById('expCsv').onclick = ()=>{
+    const head=['version','alumno','fecha','indispensables_acertados','indispensables_total','elegidas_sociales','elegidas_tecnicas','elegidas_digitales'];
+    const row=[VERSION, st.student.trim(), new Date().toISOString(), hitT, exT, c.s, c.t, c.d];
+    SC.forEach((s,k)=>{
+      const n='S'+(k+1);
+      head.push(n+'_completada', n+'_elecciones', n+'_coincidencia', n+'_decision', n+'_decision_nivel');
+      row.push(st.done[k]?1:0, st.picks[k].join('|'), st.done[k]?hits(k):'', decKey(k)||'', decLvl(k)||'');
+    });
+    download('\uFEFF'+head.map(cell).join(',')+'\r\n'+row.map(cell).join(',')+'\r\n', fname('csv'), 'text/csv');
   };
 }
 
 /* ================= Arranque ================= */
-route();
+// Si hay un recorrido guardado, se ofrece continuar o empezar de nuevo (equipos compartidos).
+if(hasProgress()) welcome(true); else route();
 window.addEventListener('beforeunload', save);
 })();
 </script>
